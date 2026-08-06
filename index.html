@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0b0e14" />
+<title>OKKO Workout</title>
+<style>
+  :root{
+    --bg:#0b0e14;
+    --bg2:#11161f;
+    --card:#161c28;
+    --card2:#1c2434;
+    --line:#26303f;
+    --text:#eaf0f7;
+    --muted:#8a97a8;
+    --accent:#3ee0a1;
+    --accent2:#25c2ff;
+    --done:#3ee0a1;
+    --tiktok:#25f4ee;
+    --tiktok2:#fe2c55;
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 600px at 50% -10%, #16202e 0%, var(--bg) 55%) fixed;
+    color:var(--text);
+    min-height:100dvh;
+    -webkit-font-smoothing:antialiased;
+    padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:22px 18px 60px}
+
+  /* Header */
+  .top{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+  .logo{
+    font-weight:800;letter-spacing:.5px;font-size:22px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .logo small{display:block;font-size:11px;letter-spacing:2px;color:var(--muted);font-weight:600;margin-top:2px}
+  .spacer{flex:1}
+  .doc-link{
+    font-size:12px;color:var(--muted);text-decoration:none;border:1px solid var(--line);
+    padding:7px 11px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap
+  }
+  .doc-link:hover{color:var(--text);border-color:var(--accent)}
+
+  /* Home cards */
+  .hero{margin:6px 0 20px}
+  .hero h1{font-size:26px;margin:0 0 6px;font-weight:800}
+  .hero p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
+
+  .days{display:grid;gap:14px}
+  .day-card{
+    position:relative;overflow:hidden;cursor:pointer;border:1px solid var(--line);
+    background:linear-gradient(180deg,var(--card),var(--bg2));border-radius:20px;padding:20px;
+    display:flex;align-items:center;gap:16px;transition:transform .15s ease,border-color .15s ease;box-shadow:var(--shadow)
+  }
+  .day-card:active{transform:scale(.985)}
+  .day-card:hover{border-color:var(--accent)}
+  .emoji{
+    width:58px;height:58px;flex:0 0 58px;border-radius:16px;display:grid;place-items:center;font-size:28px;
+    background:var(--card2);border:1px solid var(--line)
+  }
+  .day-info{flex:1;min-width:0}
+  .day-info h2{margin:0 0 4px;font-size:19px;font-weight:700}
+  .day-info .meta{color:var(--muted);font-size:13px}
+  .bar{height:7px;border-radius:99px;background:#0e1420;margin-top:11px;overflow:hidden;border:1px solid var(--line)}
+  .bar > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .35s ease;border-radius:99px}
+  .chev{color:var(--muted);font-size:26px;flex:0 0 auto}
+
+  /* Day view */
+  .view{display:none}
+  .view.active{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .back{
+    display:inline-flex;align-items:center;gap:8px;background:none;border:none;color:var(--muted);
+    font-size:15px;cursor:pointer;padding:8px 2px;margin-bottom:6px;font-weight:600
+  }
+  .back:hover{color:var(--text)}
+  .day-head{display:flex;align-items:center;gap:14px;margin:4px 0 16px}
+  .day-head .emoji{width:52px;height:52px;flex-basis:52px;font-size:26px}
+  .day-head h2{margin:0;font-size:24px;font-weight:800}
+  .day-head .sub{color:var(--muted);font-size:13px;margin-top:2px}
+
+  .progress-wrap{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:18px;box-shadow:var(--shadow)}
+  .progress-wrap .row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .progress-wrap .count{font-weight:700;font-size:15px}
+  .progress-wrap .count b{color:var(--accent)}
+  .reset{background:none;border:1px solid var(--line);color:var(--muted);font-size:12px;padding:6px 12px;border-radius:999px;cursor:pointer}
+  .reset:hover{color:var(--text);border-color:var(--tiktok2)}
+
+  /* Exercise rows */
+  .ex-list{display:grid;gap:12px}
+  .ex{
+    display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);
+    border-radius:16px;padding:14px 15px;transition:border-color .15s ease,background .15s ease,opacity .2s ease
+  }
+  .ex.done{background:linear-gradient(180deg,rgba(62,224,161,.10),rgba(62,224,161,.03));border-color:rgba(62,224,161,.4)}
+  .check{
+    width:30px;height:30px;flex:0 0 30px;border-radius:9px;border:2px solid var(--line);background:#0e1420;
+    cursor:pointer;display:grid;place-items:center;transition:all .15s ease;padding:0
+  }
+  .check:hover{border-color:var(--accent)}
+  .ex.done .check{background:var(--done);border-color:var(--done)}
+  .check svg{width:16px;height:16px;opacity:0;transform:scale(.5);transition:all .15s ease}
+  .ex.done .check svg{opacity:1;transform:scale(1)}
+  .ex-main{flex:1;min-width:0}
+  .ex-name{font-weight:650;font-size:15.5px;line-height:1.25}
+  .ex.done .ex-name{text-decoration:line-through;color:var(--muted)}
+  .sets{display:inline-block;font-size:11px;font-weight:700;color:var(--accent2);background:rgba(37,194,255,.10);
+    border:1px solid rgba(37,194,255,.25);padding:2px 8px;border-radius:999px;margin-top:6px}
+  .tt{
+    flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+    background:#000;color:#fff;font-weight:700;font-size:12.5px;padding:9px 12px;border-radius:12px;
+    border:1px solid #333;white-space:nowrap;transition:transform .12s ease
+  }
+  .tt:active{transform:scale(.94)}
+  .tt:hover{border-color:var(--tiktok)}
+  .tt .tt-ico{width:15px;height:15px;display:block}
+
+  /* Finished banner */
+  .celebrate{
+    display:none;margin-top:18px;text-align:center;padding:18px;border-radius:16px;
+    background:linear-gradient(180deg,rgba(62,224,161,.14),rgba(37,194,255,.06));border:1px solid rgba(62,224,161,.4)
+  }
+  .celebrate.show{display:block;animation:fade .3s ease}
+  .celebrate .big{font-size:30px}
+  .celebrate p{margin:8px 0 0;font-weight:700}
+  .celebrate span{color:var(--muted);font-weight:500;font-size:13px;display:block;margin-top:2px}
+
+  .foot{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;line-height:1.6}
+  .foot a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="logo">OKKO<small>WORKOUT</small></div>
+  </div>
+
+  <!-- HOME -->
+  <section id="home" class="view active">
+    <div class="hero">
+      <h1>Pick your day 💪</h1>
+      <p>Tap a day to see your exercises. Check them off as you go, and hit <b>Watch how</b> to open the TikTok for any move.</p>
+    </div>
+    <div class="days" id="dayCards"></div>
+  </section>
+
+  <!-- DAY DETAIL -->
+  <section id="detail" class="view">
+    <button class="back" id="backBtn">← All days</button>
+    <div class="day-head">
+      <div class="emoji" id="dEmoji"></div>
+      <div>
+        <h2 id="dTitle"></h2>
+        <div class="sub" id="dSub"></div>
+      </div>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="row">
+        <div class="count"><b id="dDone">0</b> / <span id="dTotal">0</span> done</div>
+        <button class="reset" id="resetBtn">Reset day</button>
+      </div>
+      <div class="bar"><i id="dBar"></i></div>
+    </div>
+
+    <div class="ex-list" id="exList"></div>
+
+    <div class="celebrate" id="celebrate">
+      <div class="big">🎉</div>
+      <p>Day complete!</p>
+      <span>Great work — resetting so it's fresh for next time.</span>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ---------- Your routine data (from the Google Doc) ---------- */
+const ROUTINE = {
+  push: {
+    title:"Push Day", emoji:"🏋️", accent:"push",
+    focus:"Chest · Shoulders · Triceps",
+    exercises:[
+      {name:"Chest Fly", sets:3, url:"https://vt.tiktok.com/ZS4QCaP24/"},
+      {name:"Incline Bench Press", sets:3, url:"https://vt.tiktok.com/ZS4QXhHsb/"},
+      {name:"Machine Chest Press", sets:2, url:"https://vt.tiktok.com/ZS4QX6ngs/"},
+      {name:"Overhead Cable Extension", sets:3, url:"https://vt.tiktok.com/ZS4QXP52y/"},
+      {name:"Straight Bar Pushdown", sets:2, url:"https://vt.tiktok.com/ZS4QXHNW4/"},
+      {name:"Machine Lateral Raise", sets:3, url:"https://vt.tiktok.com/ZS4QVLKGh/"}
+    ]
+  },
+  pull: {
+    title:"Pull Day", emoji:"🎯", accent:"pull",
+    focus:"Back · Rear Delts · Biceps",
+    exercises:[
+      {name:"Close Grip Pulldown", sets:2, url:"https://vt.tiktok.com/ZS4CmyjRj/"},
+      {name:"Wide Grip Pulldown", sets:2, url:"https://vt.tiktok.com/ZS4Cmr1Cj/"},
+      {name:"Chest Supported Row", sets:2, url:"https://vt.tiktok.com/ZS4CmAfAv/"},
+      {name:"Wide Grip Row", sets:2, url:"https://vt.tiktok.com/ZS4CmdoXs/"},
+      {name:"Rear Delt Fly", sets:2, url:"https://vt.tiktok.com/ZS4CmjXAb/"},
+      {name:"Preacher Curl", sets:2, url:"https://vt.tiktok.com/ZS4CmUaBb/"},
+      {name:"Bayesian Curl", sets:2, url:"https://vt.tiktok.com/ZS4CmbE1k/"},
+      {name:"Cable / Dumbbell Hammer Curl", sets:2, url:"https://vt.tiktok.com/ZS4CmuRsk/"}
+    ]
+  },
+  legs: {
+    title:"Leg Day", emoji:"🦵", accent:"legs",
+    focus:"Hamstrings · Quads · Glutes · Calves",
+    exercises:[
+      {name:"Leg Curl", sets:3, url:"https://vt.tiktok.com/ZS4Qmyh8E/"},
+      {name:"Leg Extension", sets:3, url:"https://vt.tiktok.com/ZS4QCGtmx/"},
+      {name:"Machine Leg Press", sets:3, url:"https://vt.tiktok.com/ZS4QCfDWf/"},
+      {name:"Hip Abduction", sets:2, url:"https://vt.tiktok.com/ZS4QCVcqJ/"},
+      {name:"Standing Calf Raise", sets:2, url:"https://vt.tiktok.com/ZS4QCu2u1/"}
+    ]
+  }
+};
+const ORDER = ["push","pull","legs"];
+
+/* ---------- Persistence ---------- */
+const STORE_KEY = "okko-workout-progress-v1";
+function loadState(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; }
+  catch(e){ return {}; }
+}
+function saveState(s){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(s)); }catch(e){}
+}
+let state = loadState();          // { push:[true,false,...], ... }
+function dayState(key){
+  const len = ROUTINE[key].exercises.length;
+  let arr = state[key];
+  if(!Array.isArray(arr)) arr = [];
+  while(arr.length < len) arr.push(false);
+  state[key] = arr.slice(0,len);
+  return state[key];
+}
+function doneCount(key){ return dayState(key).filter(Boolean).length; }
+
+/* ---------- SVG icons ---------- */
+const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#0b0e14" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const TT_SVG = '<svg class="tt-ico" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16.5 3c.3 2.1 1.5 3.6 3.5 3.9v2.6c-1.2.1-2.4-.2-3.5-.8v5.9c0 3.4-2.6 5.9-5.9 5.9C7.4 20.5 5 18 5 14.9c0-3 2.3-5.4 5.3-5.5.3 0 .6 0 .9.1v2.8c-.3-.1-.6-.2-.9-.2-1.5 0-2.7 1.2-2.7 2.8 0 1.6 1.2 2.8 2.7 2.8 1.6 0 2.8-1.2 2.8-3V3h3.4z" fill="#fff"/></svg>';
+
+/* ---------- Build home cards ---------- */
+const dayCards = document.getElementById("dayCards");
+function renderHome(){
+  dayCards.innerHTML = "";
+  ORDER.forEach(key=>{
+    const d = ROUTINE[key];
+    const total = d.exercises.length;
+    const done = doneCount(key);
+    const pct = total ? Math.round(done/total*100) : 0;
+    const card = document.createElement("div");
+    card.className = "day-card";
+    card.innerHTML = `
+      <div class="emoji">${d.emoji}</div>
+      <div class="day-info">
+        <h2>${d.title}</h2>
+        <div class="meta">${total} exercises · ${done}/${total} done</div>
+        <div class="bar"><i style="width:${pct}%"></i></div>
+      </div>
+      <div class="chev">›</div>`;
+    card.addEventListener("click", ()=>openDay(key));
+    dayCards.appendChild(card);
+  });
+}
+
+/* ---------- Day detail ---------- */
+let currentKey = null;
+let resetTimer = null;
+const homeEl = document.getElementById("home");
+const detailEl = document.getElementById("detail");
+const exList = document.getElementById("exList");
+
+function openDay(key){
+  currentKey = key;
+  const d = ROUTINE[key];
+  document.getElementById("dEmoji").textContent = d.emoji;
+  document.getElementById("dTitle").textContent = d.title;
+  document.getElementById("dSub").textContent = d.focus;
+  renderExercises();
+  homeEl.classList.remove("active");
+  detailEl.classList.add("active");
+  window.scrollTo({top:0, behavior:"instant"in window ? "instant" : "auto"});
+}
+
+function renderExercises(){
+  const key = currentKey;
+  const d = ROUTINE[key];
+  const st = dayState(key);
+  exList.innerHTML = "";
+  d.exercises.forEach((ex,i)=>{
+    const row = document.createElement("div");
+    row.className = "ex" + (st[i] ? " done":"");
+    row.innerHTML = `
+      <button class="check" aria-label="Mark ${ex.name} done">${CHECK_SVG}</button>
+      <div class="ex-main">
+        <div class="ex-name">${ex.name}</div>
+        <span class="sets">${ex.sets} sets</span>
+      </div>
+      <a class="tt" href="${ex.url}" target="_blank" rel="noopener">${TT_SVG} Watch how</a>`;
+    row.querySelector(".check").addEventListener("click", ()=>toggle(i));
+    exList.appendChild(row);
+  });
+  updateProgress();
+}
+
+function toggle(i){
+  const st = dayState(currentKey);
+  st[i] = !st[i];
+  saveState(state);
+  renderExercises();
+
+  // Auto-reset: once every exercise is checked, briefly celebrate then clear the day.
+  const total = ROUTINE[currentKey].exercises.length;
+  if(resetTimer){ clearTimeout(resetTimer); resetTimer = null; }
+  if(total > 0 && doneCount(currentKey) === total){
+    const key = currentKey;
+    resetTimer = setTimeout(()=>{
+      const s = dayState(key);
+      for(let j=0;j<s.length;j++) s[j] = false;
+      saveState(state);
+      if(currentKey === key) renderExercises();
+      renderHome();
+      resetTimer = null;
+    }, 1600);
+  }
+}
+
+function updateProgress(){
+  const total = ROUTINE[currentKey].exercises.length;
+  const done = doneCount(currentKey);
+  document.getElementById("dDone").textContent = done;
+  document.getElementById("dTotal").textContent = total;
+  document.getElementById("dBar").style.width = (total? done/total*100:0) + "%";
+  document.getElementById("celebrate").classList.toggle("show", done===total && total>0);
+}
+
+document.getElementById("backBtn").addEventListener("click", ()=>{
+  if(resetTimer){ clearTimeout(resetTimer); resetTimer = null; }
+  detailEl.classList.remove("active");
+  homeEl.classList.add("active");
+  renderHome();
+  window.scrollTo({top:0});
+});
+
+document.getElementById("resetBtn").addEventListener("click", ()=>{
+  const st = dayState(currentKey);
+  for(let i=0;i<st.length;i++) st[i]=false;
+  saveState(state);
+  renderExercises();
+});
+
+/* ---------- init ---------- */
+renderHome();
+</script>
+</body>
+</html>
