@@ -142,6 +142,210 @@
 
   .foot{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;line-height:1.6}
   .foot a{color:var(--muted)}
+
+  /* ---- Segmented control (Workout / Nutrition) ---- */
+  .seg{display:flex;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px;margin:0 0 20px;box-shadow:var(--shadow)}
+  .seg-btn{flex:1;border:none;background:none;color:var(--muted);font-weight:700;font-size:15.5px;padding:13px 8px;border-radius:11px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;font-family:inherit;transition:background .15s ease,color .15s ease}
+  .seg-btn.active{background:var(--card2);color:var(--accent)}
+  .panel{display:none}
+  .panel.active{display:block;animation:fade .25s ease}
+
+  /* ---- Calorie / macro totals ---- */
+  .cal-card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:20px;padding:24px 20px 18px;box-shadow:var(--shadow);margin-bottom:16px;text-align:center;position:relative}
+  .cal-num{font-size:54px;font-weight:800;line-height:1;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .cal-label{color:var(--muted);font-size:12px;letter-spacing:2px;font-weight:700;margin-top:8px;text-transform:uppercase}
+  .macros{display:flex;gap:10px;margin-top:20px}
+  .macro{flex:1;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:12px 4px}
+  .macro .v{font-size:19px;font-weight:800}
+  .macro .k{font-size:10.5px;color:var(--muted);font-weight:700;margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+  .macro.p .v{color:#ff6b9d} .macro.c .v{color:#ffb84d} .macro.f .v{color:#4dd4ff}
+  /* Reset moved to a small corner button on the calorie card (two-tap confirm) */
+  .cal-reset{position:absolute;top:12px;right:12px;height:36px;min-width:36px;border-radius:11px;border:1px solid var(--line);
+    background:var(--bg2);color:var(--muted);font-size:17px;line-height:1;cursor:pointer;font-family:inherit;padding:0 9px;
+    display:inline-flex;align-items:center;justify-content:center;transition:all .15s ease;z-index:2}
+  .cal-reset:hover{color:var(--text);border-color:var(--tiktok2)}
+  .cal-reset.arm{color:var(--tiktok2);border-color:var(--tiktok2);font-size:12px;font-weight:800}
+
+  /* Day navigator */
+  .day-nav{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:12px}
+  .day-arrow{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--text);
+    font-size:20px;line-height:1;cursor:pointer;font-family:inherit;padding:0;display:grid;place-items:center;transition:border-color .15s ease}
+  .day-arrow:hover:not(:disabled){border-color:var(--accent)}
+  .day-arrow:disabled{opacity:.28;cursor:default}
+  .day-label{font-weight:700;font-size:14px;min-width:150px}
+  .day-label .today-tag{color:var(--accent)}
+
+  /* Goal + progress */
+  .cal-goal{color:var(--muted);font-weight:700;font-size:26px}
+  .goalbar{height:8px;border-radius:99px;background:#0e1420;border:1px solid var(--line);overflow:hidden;margin:16px auto 8px;max-width:280px;display:none}
+  .goalbar.show{display:block}
+  .goalbar > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .35s ease;border-radius:99px}
+  .goalbar.over > i{background:linear-gradient(90deg,#ff8a5c,var(--tiktok2))}
+  .goal-status{font-size:13px;color:var(--muted);font-weight:600;min-height:18px}
+  .goal-status .left{color:var(--accent);font-weight:800}
+  .goal-status .over{color:var(--tiktok2);font-weight:800}
+  .goal-edit{margin-top:16px}
+  .goal-btn{width:100%;background:none;border:1px solid var(--line);color:var(--muted);font-weight:700;font-size:13.5px;padding:11px;border-radius:12px;cursor:pointer;font-family:inherit}
+  .goal-btn:hover{border-color:var(--accent);color:var(--text)}
+  .goal-form{display:flex;gap:8px}
+  .goal-form[hidden]{display:none}
+  .goal-form .inp{flex:1}
+  .goal-save{border:none;border-radius:11px;padding:0 18px;font-weight:800;cursor:pointer;color:#04140f;background:linear-gradient(90deg,var(--accent),var(--accent2));font-family:inherit;font-size:15px}
+
+  /* Recipe subtitle + step timers */
+  .r-sub{color:var(--muted);font-size:12.5px;margin:-4px 0 12px;font-weight:600}
+  .steps li{margin:10px 0}
+  .step-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .step-text{flex:1;min-width:62%}
+  .timer-btn{border:1px solid var(--accent);background:rgba(62,224,161,.10);color:var(--accent);font-weight:800;font-size:12.5px;
+    padding:7px 12px;border-radius:999px;cursor:pointer;font-family:inherit;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .timer-btn.running{border-color:var(--accent2);color:var(--accent2);background:rgba(37,194,255,.12)}
+  .timer-btn.done{border-color:var(--tiktok2);color:var(--tiktok2);background:rgba(254,44,85,.12)}
+
+  /* ---- Add-food form ---- */
+  .add-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 16px 18px;box-shadow:var(--shadow);margin-bottom:24px}
+  .add-card h3{margin:0 0 14px;font-size:16px}
+  .field{margin-bottom:11px}
+  .field label{display:block;font-size:12px;color:var(--muted);font-weight:700;margin-bottom:5px}
+  .field label .opt{font-weight:500;opacity:.75}
+  .field label .req{color:var(--accent);font-weight:700}
+  .inp{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:11px;padding:13px;color:var(--text);font-size:16px;font-family:inherit;outline:none}
+  .inp::placeholder{color:#54627a}
+  .inp:focus{border-color:var(--accent)}
+  .inp.err{border-color:var(--tiktok2)}
+  .row3{display:flex;gap:10px}
+  .row3 .field{flex:1;margin-bottom:0}
+  .add-btn{width:100%;margin-top:16px;border:none;border-radius:12px;padding:15px;font-size:16px;font-weight:800;cursor:pointer;color:#04140f;background:linear-gradient(90deg,var(--accent),var(--accent2));font-family:inherit}
+  .add-btn:active{transform:scale(.98)}
+
+  /* ---- Food log ---- */
+  .log{display:grid;gap:8px;margin-bottom:26px}
+  .log-empty{color:var(--muted);font-size:13px;text-align:center;padding:6px 0}
+  .log-item{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:11px 13px}
+  .li-main{flex:1;min-width:0}
+  .li-name{font-weight:650;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .li-macros{font-size:12px;color:var(--muted);margin-top:2px}
+  .li-cal{font-weight:800;color:var(--accent);font-size:15px;white-space:nowrap}
+  .li-del{border:none;background:none;color:var(--muted);font-size:22px;cursor:pointer;padding:0 4px;line-height:1;font-family:inherit}
+  .li-del:hover{color:var(--tiktok2)}
+
+  /* ---- Diet recipes ---- */
+  .sec-title{font-size:20px;font-weight:800;margin:6px 0 14px}
+  .recipes{display:grid;gap:14px}
+  .recipe{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
+  .recipe h4{margin:0 0 10px;font-size:17px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+  .chip{font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:var(--bg2)}
+  .chip.cal{color:var(--accent)} .chip.p{color:#ff6b9d} .chip.c{color:#ffb84d} .chip.f{color:#4dd4ff}
+  .ingredients{font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.55}
+  .r-actions{display:flex;gap:10px}
+  .r-btn{flex:1;border-radius:11px;padding:12px;font-weight:700;font-size:14px;cursor:pointer;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-family:inherit}
+  .r-btn.primary{border:none;color:#04140f;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+  .r-btn:active{transform:scale(.98)}
+  .r-btn:disabled{opacity:.7;cursor:default}
+  .steps{margin-top:12px;display:none}
+  .steps.show{display:block;animation:fade .2s ease}
+  .steps ol{margin:0;padding-left:20px}
+  .steps li{margin:7px 0;font-size:14px;line-height:1.5}
+
+  /* Day label is now a button that opens the calendar */
+  .day-label{background:none;border:none;color:var(--text);cursor:pointer;font-family:inherit;padding:6px 12px;border-radius:9px;display:inline-flex;align-items:center;gap:6px}
+  .day-label:hover{background:var(--bg2)}
+  .day-label .caret{color:var(--muted);font-size:11px}
+
+  /* Macro goal display */
+  .macro .mg{font-size:12px;color:var(--muted);font-weight:700}
+  .mbar{height:5px;border-radius:99px;background:#0e1420;border:1px solid var(--line);overflow:hidden;margin:9px 8px 0;display:none}
+  .macro .mbar.show{display:block}
+  .mbar > i{display:block;height:100%;width:0;border-radius:99px;transition:width .35s ease}
+  .macro.p .mbar > i{background:#ff6b9d}
+  .macro.c .mbar > i{background:#ffb84d}
+  .macro.f .mbar > i{background:#4dd4ff}
+
+  /* Vertical goal form with macro goals */
+  .goal-form{display:flex;flex-direction:column;gap:11px;text-align:left;margin-top:2px}
+  .goal-form[hidden]{display:none}
+  .gf-row label{display:block;font-size:12px;color:var(--muted);font-weight:700;margin-bottom:5px}
+  .gf-row .opt{font-weight:500;opacity:.7}
+  .goal-save{border:none;border-radius:12px;padding:14px;font-weight:800;cursor:pointer;color:#04140f;background:linear-gradient(90deg,var(--accent),var(--accent2));font-family:inherit;font-size:15px;margin-top:3px}
+  .goal-save:active{transform:scale(.98)}
+
+  /* Calendar modal */
+  .cal-modal{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(4,7,12,.66)}
+  .cal-modal[hidden]{display:none}
+  .cal-sheet{width:100%;max-width:360px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow);animation:fade .2s ease}
+  .cal-mtop{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .cal-mtitle{font-weight:800;font-size:17px}
+  .cal-close{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--muted);font-size:14px;cursor:pointer;font-family:inherit}
+  .cal-close:hover{color:var(--text);border-color:var(--tiktok2)}
+  .cal-dow{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:6px}
+  .cal-dow span{text-align:center;font-size:11px;color:var(--muted);font-weight:700}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+  .cal-cell{aspect-ratio:1;border-radius:10px;border:1px solid transparent;background:var(--bg2);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-size:13.5px;font-weight:700;color:var(--text);font-family:inherit;padding:0}
+  .cal-cell.blank{background:none;cursor:default}
+  .cal-cell.future{opacity:.26;cursor:default}
+  .cal-cell.today{border-color:var(--accent2)}
+  .cal-cell.sel{background:linear-gradient(180deg,var(--accent),var(--accent2));color:#04140f}
+  .cal-cell .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);margin-top:3px}
+  .cal-cell.sel .dot{background:#04140f}
+  .cal-hint{font-size:11.5px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.5}
+
+  /* In-app detailed recipe view */
+  .rv .eyebrow{font-size:11px;letter-spacing:2px;font-weight:800;color:var(--accent);text-transform:uppercase;margin-bottom:8px}
+  .rv h1{font-size:26px;margin:0 0 6px;font-weight:800;line-height:1.15}
+  .rv .sub{color:var(--muted);font-size:13px;font-weight:600;margin-bottom:16px}
+  .rv .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+  .rv .desc{color:#c4cede;font-size:15px;margin:0 0 16px;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px 16px;line-height:1.55}
+  .rv h2{font-size:18px;margin:24px 0 12px;font-weight:800}
+  .rv .meta-grid{display:flex;gap:10px;flex-wrap:wrap}
+  .rv .meta-tile{flex:1;min-width:84px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+  .rv .meta-tile .mv{font-weight:800;font-size:16px}
+  .rv .meta-tile .mk{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
+  .rv ul.ing{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+  .rv ul.ing li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 14px;font-size:14.5px}
+  .rv ol.method{margin:0;padding-left:22px;display:grid;gap:15px}
+  .rv ol.method li{font-size:15px;line-height:1.5}
+  .rv .st{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .rv .stx{flex:1;min-width:60%}
+  .rv ul.tips{margin:0;padding-left:20px;display:grid;gap:9px}
+  .rv ul.tips li{font-size:14.5px;color:#c4cede;line-height:1.5}
+  .rv .log-cta{margin-top:26px}
+  .rv .log-cta button{width:100%;border:none;border-radius:14px;padding:15px;font-size:16px;font-weight:800;cursor:pointer;color:#04140f;background:linear-gradient(90deg,var(--accent),var(--accent2));font-family:inherit}
+  .rv .log-cta button:active{transform:scale(.98)}
+
+  /* Timer control (recipe view) */
+  .tmwrap{display:inline-flex;align-items:center;gap:6px}
+  .tm{border:1px solid var(--accent);background:rgba(62,224,161,.10);color:var(--accent);font-weight:800;font-size:13px;padding:8px 13px;border-radius:999px;cursor:pointer;font-family:inherit;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .tm.running{border-color:var(--accent2);color:var(--accent2);background:rgba(37,194,255,.12)}
+  .tm.done{border-color:var(--tiktok2);color:var(--tiktok2);background:rgba(254,44,85,.12)}
+  .tmr{border:1px solid var(--line);background:var(--bg2);color:var(--muted);font-weight:800;font-size:15px;width:34px;height:34px;border-radius:10px;cursor:pointer;font-family:inherit}
+  .tmr:hover{color:var(--text);border-color:var(--accent2)}
+
+  /* Calendar month navigation */
+  .cal-month-nav{display:flex;align-items:center;gap:8px}
+  .cal-nav{width:30px;height:30px;border-radius:9px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:18px;line-height:1;cursor:pointer;font-family:inherit;padding:0;display:grid;place-items:center}
+  .cal-nav:hover:not(:disabled){border-color:var(--accent)}
+  .cal-nav:disabled{opacity:.28;cursor:default}
+
+  /* Tappable month title -> month picker */
+  .cal-mtitle{cursor:pointer;user-select:none}
+  .cal-mtitle::after{content:" ▾";color:var(--muted);font-size:11px}
+  .cal-dow[hidden],.cal-grid[hidden]{display:none}
+  .cal-months{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .cal-months[hidden]{display:none}
+  .cal-mo{padding:15px 4px;border-radius:12px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-weight:700;font-size:14px;cursor:pointer;font-family:inherit}
+  .cal-mo:hover:not(:disabled){border-color:var(--accent)}
+  .cal-mo:disabled{opacity:.28;cursor:default}
+  .cal-mo.cur{background:linear-gradient(180deg,var(--accent),var(--accent2));color:#04140f;border-color:transparent}
+
+  /* Month reset button in the calendar header */
+  .cal-monthreset{height:34px;min-width:34px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--muted);font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;padding:0 11px;white-space:nowrap}
+  .cal-monthreset:hover{color:var(--text);border-color:var(--tiktok2)}
+  .cal-monthreset.arm{color:var(--tiktok2);border-color:var(--tiktok2);font-size:12.5px}
+
+  /* Hide scrollbars everywhere (scrolling still works) */
+  html,body,*{scrollbar-width:none;-ms-overflow-style:none;}
+  ::-webkit-scrollbar{width:0;height:0;display:none;}
 </style>
 <!-- APPICON:START -->
 <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAABBi0lEQVR42u3d15Nk2Z3Y9/pD0J3lbZb33vuq9t1jAJFLkbtYLElRuytyCcYKFBSK4O6SD5QeVnyRCUohiSIXGN/d5dNe723aMt09Awww8BgASwLDOPaem6a6eqarZrjIim/gAU/VFZ/53cx7zz2nbvk73wJ98K3lD769gntj5YM3Vj94k/TW2gdvrb3/1tr7b6+9//Y66B3Yu+vvv7sBeg/37OFm0CPS481nj7dAO1tPabtMe7gne1tP9pkOcGcHm6BDto2zo43ToHVQbP0ktsa0CoqvHsdXYMukpWJ8qZhYJC0UQPOwuUJiLp+YzSdn88kZ2HQONAWbzCUns8mJbGoimxqHjWVAo7CRTGrYTw376SHYoAca8NL9sD4X1AviehyuGxZ1uKjNddlcJ6zD4tthbbBWE9QCEkAGSkQ1g6RmnU1uQmlyk6YwqY2a2qiiNFqDqjUoOpOBqpeNetmsl806yOLiMt6hMjaqyqAsHm1hFqyMUhbbqIosMI5DGpRxBDoFERyxjdMYwoGCOOJrUAaK+EgsF0FLMBbHQiE5D5vLgwIfOeojNZVLTWZB1AeDIz3ig4ZhLA7gA8jg+lyuF9bjYB8MDr7T5jssvoPi+LxlUByfVUb5wGBYQBkYx+52EGHxdB/0BHUQ7pCVsXV2hCI4YqgNGpARRyEcaxhHYvU4sQJDOBgfycVCcgFWCUdqJpeahlXAkUmNZ9JjsHIcQwAHNwDrd0EYh8Pi4KM23wUrwyG0wj4vGQjHt5c/o4z3QzK2SgbGs53tZzvbT3cqsThHxiHuDHW0TWTAYltEBvERB52AQj6OE2tQBsWxgnEkl1AFgCPwkQfN5VNz+dQsbCbH+MiCJrPpyWx6Ipsez6RZHKM+9cENeaBBGIujD+Pgexy+2+G7bQaHRXEI7aYQ4PicZNTLVl1YxhsvJGMzLGOrTMY2llFhYNx4uh/05IDpEEVwHIWLbaFOcZuncdwJxgF9JFAIR+CjmEQtw8I4UqB8ah6GfeRYHOmpLIjimMgEPkb99KjPjcCGfW6YxeGCIA6+z+V7HVAlHEKnJXRYQiUcn4MMgIPKWKkq4+1PIWObyngWsLgR9BwZsKMbZzjEIgjLiNMQjs2TxAYJ4DgGQRzJtePk6nFyNYwD+CiklgqpRVglHOnZXHoGNp1LT2cDHxMZhIMbz3BjGW7M58pxQB/8gAvqh/U5DA4b4RCittBlC+U42kyx1RQ/Lxn1EsBRKmP1BWVshWVsl8m4Aaoo4wBUkQUK44jRII749imO8ZHYPMEFPo6TqDXSapH6SC0XU8tQRshHHvlIz+fTc/n0HIsjy+LgJjPcBIzFgXwMe9ywxw/BquMQemyhG8oAOKwAR4cptJtiG6z185PB4qggY+0zy7hRKgOzuAk6AD1BHTIdBZ3FbjIybpzFcafUR2L7NLGFOqE+khsogoP4SK0WcSuw5ULgY7GQXsynF2AYRw7jwD6y3DRsKsuV4Bj3KQ5+xOdHPD7A4YIwDofvc4Q+R+h1hHIc0IfYYYkdplgJx1XLqJfsOkbGm59FRpjFzo1nuzeehWTcxCYIC4yjCosnMdAZLX6TkQFLbDNtnSS2TpKoTdLGMfKRQq0VQSyOFYAjvVxIL8EW82EfGAc3m+NmchyLYyrD4uDHfX4MNgplIBzDIRzCgCv0QxkYh41xAB+W2AWriKPVkFoMKYzjKmQgHETG+2+tVpKx/sIydktk3Kwm4+nhrSe0I6YYiGER6jRxgwniSG6fgEI+jlMbJBYH9JFeLaZXiukVKKMSDm4+z83nuDkY9lGKg5/M8BMZvgTHaIBDGHJBg1BGCY5egEPshoVwmBhHuym1GVIrrOXzkMHgCMtYK/16clEZNwIZlEWpjFugw1tPq7PAOOJsN88SuFPcjdMkDeGAPlKozeNUqY9ieg2GcKwWAI7ARz69lOcWYQt5biEXxpEFOGay/DRsCspAOCb8EhzCiCcMw0I4HIAD+hB7HbHXFlkcUYKj05Q6TKkdVgnH1ckgOKAMBkcFGRufUgZlsX8LsyAynpbIiIVjZSTYoIwkKvABZKRQ2Mcx9ZFGrRfTIR8YB7cMW8pz5TiID342y8/AKI6pMI5xXxjzhVFPQDhGwjiAD0fsh/VBGQgH8GFRHFKnKQU4DAaHLjfDrlJGvejUnSNjvco90OfKKBkYDItAxu0nR0wxpjjojJa4zeI4TaJuBqVunOBCPo7TW8fpTRjAUcQ4iA9utQBagQEf+bCPHD8Pm4PNZrEPgCNDcQiTGWHCF8ZhY74wxuJwQUOuOAhjcfSFcEhRWBUccqsht+hyC8VxVTJYHFjGWsWPGi9Pxm1UZRnxIMKCKXn7LElxQB8p3AnrIw2CMiiOTYhjo8itw9ZglXDwS3l+Mc8v5vgFGPaRDXAAHxlhOiNMQRmTPsAxUQGHOOyCMA4H4EA++myEQ+qBVcTRYcrthtwGC+G4QhkUR/BRY43ICMbGs8p3uirIeBaScSt8KbkdFGJxBxdnStw5w1EWuNPk7dPULSaE4+ZJ+gYJ4WB8cKAitwHDPgog4oNfyfPLMOyjDMdcVpjNCjOwqjg8ccwTR2EsjqEQDqnPBmEcFoPDlLpMudOUO0y5w2Bw6BSHcpUyEI63V8+T8V7F5yZ0bLygjCMq407AoqqMO2dJtttnqdunQRBH+tZp+uYJLvBxzKG2YJVw8GsFfhVWEQf0IczD5rICwgF8ZAIcUxiHOOGL4744zuJwS3BIA7CKOKAPucuUq+BQWmBhHJcuo150KY53wjgAC9h5MrarXE1YGbfDMu48PboTkhFicRdVxuLOWQoX4EjfhjJAJyDog7uBCuPYKgIcm0V+A7Ze5NchjsBHHvtYygtLeWExB1qAzWdBLA7oQ5zKiFO+OAmriAP6kIZcaciRAhw2COHotaQeS+6GRU0Gh0FxKG26EuC4WhkYxwvJqHBBeTEZoYFxNygRdJZkSqGQDFj6DpSBAzI41E0YwsH44LeK/CYM4yiEceSFFdgybCkHKscBfGTEGdg0LITDwzjGPGnUk0ZcEItjMIRD7rXlXkuugkPpMJR2Q6mC44pklOCAMp69u05khHFUlXHjAjLuhGXcBVVi8aQCC1L6LmTBdvuUu30CCvkAMnjUNmyrGPZRQD6ENdhqXlithGMR4xDns+Ic7BwcE5407kljsFE3wDHssDjkfhtUBYfSZSqdphLg0BkcmtqsqU2wq5FRLwAcWMYakbFOZGwEi3fKnsJ/WhlhFljGPVwSdIZK0QAL1CnuzilHQziID/7WCX/zGFQFh7BRFDYKwjqsBAf2AXCIi7CFLIjFMUtx+OKUL0350qQvTfhSCY7REA55EDZgMzgsBoepRKEMgMMox6G26GoZjkuXUS94BMczVsZ7YRmPKsggT9QqfmutIONpBRn3SlhgHKlwaRqUwdGwDyCDR7E4Ah9FYbsobME2YRuFsA+MQ1zJi8s50BKMxQF8ZCgOaTojTUMZGIfH4HApDnnYlYcduToOpcdSui2lCg61TQe1QhkBjquSAXAgGWtEBjM2HoXHBlnTFX4Kz4yNF5DBsAjJuH+WYkqzMu6dcijGB3/nlL9zAgr5ADKEm8fCDRTEEfgosDjEtTxoFXYuDmkuI83CZjLSjF8Zx7gnj7nyKGwEyghw2BSH0mcpvbAeS+kxMQ7gwwA4Og21w1DbdVAZDq3pqmRAHFAGg+NhGEfJBeU5Mm69uIz7uBSIsAjH3T/jKA4Yfxd1gnEQH8LtY+EWLPBRikPcLIgbsHIcKyyOrLSYlRay0jxsLoN9lOLwpElPnvDkcVh1HMoADOHoq4BD7TLUTlglHFozlNF0VTJYHJVlhMYGWQda/hT+U8mgLM6RwQWdcvdP+fun/D0SwgF9CCgWR+CjKNwoituwraJYgmM9H/hYyYkrOWkZtpSTKA7gI1OOQ5725SlfnvTkAIfL4HAQDmUIVh2H2m2qUVONGgwOneLQWjWtBcbiuAIZ9YKPcLwXxvEojAO/VfDCMsKfQO+dK+PBk9SDszQTx3b/jEcywj6EeyfCXVjg45j6EG8eizeL4g0YxlEAUR/reYRDWstLq3lpNSddAIc868szUMa5OJQRB4Rx2AwOi+JQe0y1Og6tXdeq4NCvQEY9D3AEMtaJjA0iYzMsg8ERPIUP4wjdz6go435YxoPnyOBxpyCIQ0AhHGEf4p1j8TbsFuxmMeSD4JA2C9JGQdrIS+tQRgUcWRDBIc9n5DlYKQ6PweHK464yBjsXh9oHq4JD6zS0DigD4NAYHECG3qTqYRyXJYPF8TCMA8p4+pi+iVS2SLiijMPbVb61VpJBWIACFq+E4l9hZDw4FVCBjxOUeBd25/gcHNJ2UdouSFtQBosD+VjNYRwrGIe8lJUXs/JCVl7IABzzVXEok54y4SkTrhLgcBgcNsKhDtjqgKUGOEwGh6FGDa0LyujUMY62AIfeounNUAbAcSUyynHgsbHxFMjYZN5epG8VsDLYlTv0iRq9O/5CMl4BlbIIOhVeITICHyfi/RPxHgzhuHtc4kO6VZRuFqUbMIoD+8iHcKwBHPIKbBnKQDgWS3D4FIcy7SlTsHNxqEM2qDoOrdvUooZWAYemtWl6K5TRopbjuFwZ9XwG4cAyAI6ngYxN5gVGVkYYB1mfUSojVv0TaEjGK0/OlyGAToMenIoohCPkA8iQ7hxLt2G3ihgH9lEoxyGvw9by8lpOZnEsUxwZFocy64NmfKUUh8vgcJRRRx2BDdsMDovBYWq9ptYD6zYYHDrFobdpehUcxhXIQDgeYhxPH61DGWEcu2EcdPn4AYuDLs5gbpCXjI1yGelyGa+e8UxCEJYhorCPE+pDuge7ewwKfFTCsV2QtwryZkHezMsbsHUoozoOZSGjzMPm/ADHTGUc6pirjjnquTi0PkurjkPvgIVwqBSH0aQYjVcig+B4imUwOHZYHGWvqTEy4DpQuj6j5Ila2QWlqoxXz5FxJr56imN8SA9OQPdh5+C4VZRvFuUbRflGQd6GbRXkrXxlHMAHkKEsZ5WlrLKYVUpwzFEcHsWhTrrqBOxcHNqABSrFYWAcXYbepesBDo3FYbSoRrNqsDguW0Y9l6lbe/pwjchYhzI2iIxN8i48fa81hINZOF5Rxt3zLiiBjFdLZQivhRJfY3DApFdgCEfg4xgEfch3juU7Rfl2Ub4Fu1mUbxaq48iB1nLKKmwFysA4MufgUKc9dQoWwuEwOGx12NaGYIMWg8Nkcejdhh419Co4jFYoA+OAMgiOy5VRz2VZHI/DOHbDOPa3qQzyJhJdIczgiN8pfaJ2URmvgUpZgE5R0mun0qukV05ABId8/0S+dwy6C6M4bodx3AjhUDZg6znQ+TiADx/hUGd9dcZTn4dDG3G0EVs7F4feYwIZGIfO4ND0ds1og1XCYTZcvgyE41EYx04Yx16A4wl+r5W+o8bKCOMIZNwrudMV/m5yjozXSYgFDfsAOORXTuQHMODjOPBRguNWgEPZLihbedAmrBRHlsGRoTjUhYw676tzsFIcLoPD0cZgo1BGgMNicJh6n6n3wtDYCOMwOnSjQzMwDhXjaFaNZsVoUsxGWMPly2BxPA7j2A3hwFskUByHYRwxgqNkbJDHaS8i43WGxetnEugUB3HIr53Kr57Kr0IZ1XDcLSIcyu2icquo3CooNwvKDdh2QdlmceSq4VCXMqBFKGPBPx+HNgE7F4c+YOn9ll4ZB5BhdOlGJ5RBcbQGOMxmxcQ4ZIrjEmVQHI8Jjh2IY5fgwFsx0f0zwjiOwjji7Ni4WzI2zoJ7oC8mI8Ahvw5lYB8nYR/HAMf9Y+XesXL3WLlbVO7AKuDIV8eRVVez6kpWXYZVxeFRHNqUC8I4HAYHkQFwWPogbADKCHAYFIcRhTIojvYAh9mqmi1QRhmOy5VRz+VYHDsBjie7m0/2Np+wOA4IjsMwjlgYR7Cmq+QpPCuD/dZaUcaXz6SgU/nLUAbrg+BQXjlRHpwoD46V+7AKOAoYx81yHDl1I6euw9ZyaggHkbEIZYRxaDOwEhzjBMcoxqEPw6rjMHoMo9swunWMo1M3OjWKw2yDMkpxyGajbDVcvgyE43EIx5PdjScsjv0wjsMbzEvPDI54GAdY54cWdNFnrRVxlMv4ckiGDDoNev1Uef1Uee0E9CoM+2Bw3Cueg0PdzoO28upmXg3hyJ6HY97X5n1tztdmPW2WyJgmMibJ2IA49FEbhHFYDA6T4jB6DYPiiJbiMNthAQ4io0mxGmUL47hkGfVpgmPt6c76ExDCsQFlbAbb+x2EcRwRHLEwDvA+wd0zvEKYwZG+X/rohK+OA8v4ypkMOgVBGcqXoQxQCY5jgONBZRzqrQLoJuxG/mI4MgiHtpjRFn1tAcp4Hg59HHYuDqMfhnD0lOPQzE7NxDhUjKMF47CaFKtJLsFxiTIgjiePYQjHbhjHfhhHsLkK2iWB4MCvLqKXTegKYbTOj8HBPQjLePW5MjAOBRX4OAmGB4NDvX+s3jtW7xXVu0X1Dux2AVQZR64aDm05A6qAw2NwuAiHPunqk44e4LAZHBbFYQyYxgCR0WcwOIAMM6qbXbrJ4mijOBSrRbFKcUhWwyXLqE/nEY6dMI69MI6DMI6jAMcZfhcevb0YxpEiONJVcAivln5rLZNxpvxXp6BSHyfqa7BXYa8cqw9g96GMEhzB5MhXx5HV1rLaKmwlcxEc+rQLqoZjBOMwhmDVcZjdUAbAQWR0kLHRplqtqhXgkCkOu0GyGy5ZBsCxGuDYRREc+yiC43Cb2aoL7anC4EjcZt5RY3AEa7oIDr4KDongKJUBU78C+/Kp+uUTNYTjuDqOQgjHDRZHTtuEbeS09ZxWFYfP4PC0OU+fhc24DA4oY4LIIDiMEcsIcJgMDgPhMJGMbjI2wjisNlirUoLDbpTtRonBcWkyEI6dMI49iGOf4DgIcMAtH9E+XXTDnSo4UlVwBM9aCQ6xMo5TmZWBej6OYnUcee0GbDuvbeW1LSJjg8hYIzJWiIwlMjYWfH3e1+c8HeGYITimKuAwxmxj1DYq4oAfOMw+w+yFhXBoFIfVoVoIRyuLQ7abYCEclymDxbG7BmVQHNDHwSbcXRrtEcvgiIVxBC/Ch3HgheNoEWglHPgGOb3Nhb6SoM8ZVMbfOgcHlFEZR0G7U9BuF7RbsBCO3MVw+Pqiry/A5j0Gh8vgcBAOY8IxxqEMjAPKGCYyIA6z3zT7DQaHzuKwOmEdGpDRTsYGxGG3KHaAQ6I4LldGfaoAcKxCGRTHOpSxcbYPdxxncRxtM9v7oU2YKuEI3lEL48AL/tCyjFdBwXOTMA78CYPOjOCyclINh3a/CLpX1O7CkAyMI18dR5bBAWToKxl9OaMvZfQL4DAmHRCQQXCMVsBhDppmCY4eHeOI6lZUswIcKovDboUyWuQSHE6D5DRcsowSHFDG2d76GZCxgbejBzvSszi2yd5+BAfeVgVtkUBfekbvqEEcaOE4WDuOVvsRHPgpK3pigu6BkvsZ9BNoGAeR8fqJ9tqJ9uox6BVYKY5CCMdNgmM7r20TGZtEBsShr2b1VSJjmchYJDLmiYxZLMOYdo0ph8FhMzgshMMctswhImOAyGBwWN26VREH+MABZZTikJxGGIPjsmQgHLsAx9nu2tneGpRBcWyEcIB9pRkcdAe3EI7b5I1n9N7ivVP8MhJaNY7WgZI1XSEcr5Eb5PSWBsIRdILGhoZkvHYc4HhwrD0gMu6RsRHgyFfDoW9k9XXYGpQR4PCr4TBmXWMGyjgHx4hljiAZ1XDoVg+sm8joIjIgDrtNtQMcMsLhNMlOgENEOC5RBsRxtgvbY3GsQxkb5CALBkdsm9kSFO3gBnGArXbQziroRXjyXivH4rhPFgkzOMAjVvREjdwgx99XYeqXyecMKqPC2CgGY+MeGRt3Kl5TcvoWDMnYIDLWyNhYIWMjuKYAGcYcDMmYITKmiIwJLMMcs81RKGOEjI0Ah4FwWL2G1UtkhHCodgesHcpgcTTLTjOUweK4bBn1qWLdSgjH/lolHJtkR3qywTTeEpRu7If2YUI7Z9BdEhgc4DUT9FYBWSGMF3TR9Rnoicnr5Ab560jGSRC6mpwzNu4TGXcrjA39Rl6/kdOr4sgwOHyKw1jwQBfAYY5DGRQHe00BOAyrH9YHZQQ4NITD7tTsTiIjhEN2WqCMEA7Rbbh8Gc/FcbgRwgF2pN8+jW2fBjvFor39yD5dKeID4cAvtbI47odxvBKs36FPXMENUJgaDrIIyzh3bOi38qCbsBt5IGObyNjMMteUTMk1xVjyjUUYkjFPZATXFCzDnHRMJGOcyAhw4LFhDZrWAJHRR8YGuabYUc3ugjICHArC4bQqToBDQjjcRskNcFymDIpjD0VwHKAIDny+CTqlgO47jvaIpRs/oh266J470EcIx73gfSS8QvgVsuAPPWJ99UR+DaSQAhnwuwlgUS7jQVgGxKHfhlEcpWMjG4wNBoexkjGWfSPA4TE43BIc5hSUUY4DX1OADGuIyAhw6BSH3U1khHAodrvitMFaZYJDQjjcJigD47hkGfVJiGMF49hfwyEchxunKHzyDTnFIoTjBtnyke7gRnDgLRLQG8/47UWK4wSFV/u9QnCgZ2kURyjColwGuaDodwv6HRjAwY6NXIWxsUFkrGUMJGOFyFgiYyO4prj0mmIiGVNERnBNsSgOaxjKKMcBryk2khHgIDI6VKddcTAOIgPicJuhjCYiA+K4XBn1yeO6lbM9igP6OFg7PVgHHa5DGRTHZggH2FeaxXGT7OBGNmQK4bh7wpO30/DLSAgH8YGX7bxKnrXC8KOTV49RAYtyGfegjLthGdXGBrmmGOtZA8m4wNgwZ10TyQjGhs2MDQtdUywkY5jIGCQyAA7d7oXRsRHG4XQo5TjcFigjjMNruHwZAY6Vs/3VU9Da6QHskMWxQQ5EokdYEBx4A2G6JSjawQ1u1QV227kDQu/Cg9dZ0auL98jLJvdP6ApymfjA6zMwDswC3ekKbmmcI+NOWEbJ2NjCMowNIqNkbGAcHovDnIMyzsVhjVnWKKwEBxkbdp9u9xEZPRqDA8hwOlUnhAPIcFtlN4RDRNcUL4zjsmQAHMuneysghONgleCAPsCpi/SEPegDH26yRXakJz7QZqAptLHfLbIVE9084y553fkeeUHtPnml4AFZB/qA4jhGqUwVWFSTUXJBYcaGsZkFIRnrmdDYCF1TgAxzwTORjDkiY8Zhrik2uqZYSMYYkTFiMtcUIMMeMOwSHPSaElWdLiijE8pgcLgYh8Ti8BphDQLFcYkyMI7l0/0VGMKxCmVQHOsBDnxgVoAD7kWPtg5GO8XeJDiID7q5ikB8iMSHRHyA5cFoHegDsmznAXlcQqo0MKrLuBWWsZ0zWBkbREaAIzQ2zEUiY95lxoZTMjYsJKPq2DDsQSKjn8joJWOjW3OiGpCBcSgUh9smu2U4vCbRwzgEiuNyZdQnT1gcBythHGvkvFZy/CI+LQsebgLONyFnFaSIjzTxwREf/G1mc5W79I1niOMefBPpPl4bLKN1fpVxMNOiqoySC0pYxla2+tjw6dgwl4iMamMD4rAmbSvAYTE4TITDHjKxjPKx0aM5SAYaGwwOt11x22UGh4RweM1iOY5Ll1GfADj2USwO6ONojTnMdwMEztZDpyHRw2+2yXEFaOtgtFPsTWZvP7wbE90/A77ujN5bvIfDrxTcJ+tAYSquiGJMBN9aq8vAY8Mol1EyNogMc9k3l3yzfGzMkbEBcVhTjjVFZEwQGWNExohpIxlDBoNDpzgcJKMUh+J0Km4pDsltlTwgg8UheI2CD2QIly4D4FgK41iBMkAnR2sgepJvnMWxGZyMlGJx3CA4bhIct8hWXbePhTtki4S7+L1F8OrivSCFCT98J5Ww0CiL8qsJK4PFQWWEx4a5QmSExgYjYxbIsKZh1ceGjWTQsTFIZJBritOrMThUisNFMjqgDAYHkIHGBoMDyGi4EhkYB/RxsIxwnByunAAZFAfxEYc+wMF66By1TYKD+KBbj+OdYm8eg439YBgH2jbjDtkoAeFgIjKKSliGSh/E07vj7MC4iIzNsAyIw6QylomMSmPDmnGsGSKj0tiwkYzqY8Pp0x00NjAOFeFwkYwyHF6r5JXh8JsEP4zjcmXUJ04JjpMD2OEK7oj4wEd/szg2CI7N4GQkfFYB2lf6BpSBuhXs4Ib3VLlNcMDAq4sYB1w1TlKZSlhgHOyl5CIyNsIyVsMyKo0Na9a1ZomMaSJjksgYJzJGTWZsGOzYcPqJDDQ2GBxARpfC4AAyvDbZa5MYHECG30xkYBxXIgPiONlfOjlYIjiWQzhiq8y58NAHwgHOXoQ4wFFIW8f45Bt4kAXYbvwG2WD6JtkSFOEgPiQaeqkVptBYHHfImq47BfZBfIUPGc+REYwNk8oouaAsEhnzrjUHQzJmiIzw2LDHYOzYYHA4A4YT4NAYHKobhYVwQBmlOESvBclgcfB+w5XIADgWCY4lgmP55GgFhnCsEhxr5JhndOrixnFykxyVtUUON6FnWdDdx2+SLR9vkn260G5Mt3H4dWcWxx2ydvxOARU8ZcVVHhgXkrEWllFyQVlgZVQdG/a4ZY8TGWhsjBAZQ4aDZAwQGX3B2HC7VTfAoWAcHYrXAWW0QxkEh49koLFBcGSuTAbGsYhxHC6FcaxgHPFVcCg8PhceHvOcJD4QDnAUEsQBzq+AOMCO4xAH3kYY4Cji7dtu4T1VwLYqt4MUJvy+CSlggdZnVBoYLyCj6gXFteZhrIzw2LAnbHuCyBiDMoJrCpExSGSEx4YbwqHQsQFklOEAMspwABkNVyWjPn5Wt3hygEI4oI8j6CO2cgxaPY6jyLnw+BhfevAiPSpri55vQnak38Z7xApos0fiA+zDhHAwgTeegYyCEpah3iKLhCELLcQifKerugwTyyi5oHh0bFgLXiCj5IIyTWRMEhmVxoYzZDhDREYwNoAMtxfK6CkdG16n4nXKAQ4ow2+V/FaRwQFkZBqFTCPP4rh0GQDHAsGxiHEcLR+jMI4VjCOxypwLv04O890gxy9ukgOz4OE34JSC7SLelH6b4EBbPt4MAtuqYBwFhUkNFyz1Qyt3ylgEd7ouLmM5LGMhLGM2JMOeQjIqjw1n2HSGiYySsdEXlkHGhtcFozjA2IAySnFAGaU4rkQGxgF8HB+ilo6PlggO6COOQjhWCY415qTnDXL84iY+EAnjgAnEB9gjFuGgoQ13SAqTGhRigVb7BQ9at4OHagGLi8tYCsuYD8uAOGwqo3RsEBkjREbZ2HCRjF4oI8CheNGwDIjDb4cy2qCMVjw2Ms1QRhOUQXBckQyI4/gAhnAcLUIcS1AGLE58IBzJVXIu/Bo4xjeFDuNEZy9ukNOyUFtkL/otggOGN/aDyaRKMvL4BUZQDpZVt3Eaaiurk0Is0LfW4HNGZRlWuYzwBcWeDssIxgaQ4VAZwdjQ6dgAMsA1RXV6VKdHcboVp1t2oiC3CwRkEBxARntYRguUgXFgGdmrlFEff1I3D2WgEA7oI0Z8xKGPBArgKILo0d/rwXmt+IS9DYIDHW4CcYio7YK4jfd7lNDebRQHEwFBWGxnle2MsuXLdzLqV3LGV3LGvYy26SubvrqZ0TYzaIlG6cfPqjL8QMZiJRkQh01lTIVlQBzOqOkgHMMVxoYLZTh9qtOr2D2y3SNZo4ozp3lzmjcgOV2i3SU5nZLbKZXKIDgyLWKmRQhwwLEBZDRcoQyMY57gWMA4YosQx9JxfAniWC4mlouJFVBypYh8pFaxD3CGL8JBfOCj1BCOzQI4xWIrCOwRS3GQlG2yIdM2eZ11O6du55QtwEL6s6d5++c/+YT5yX388//l/ZMNV9nw1Y2MtpHRN0rvgYa+m1STUemjhj0TlhG+oDhjREbJBWVQd5GMfipDsr55/MT92cfsby7/+Gd/lD3tFOwO0emQvA7JC3BAGQgHMzayjTAGx1XIqI8RHNDHEQrhAD6KcRTCsUxwrEAZMHz69xo5knMdnr2IzlFDZ94gHCS8gTBMpqHddkhYxlZW2crIm574H773/idVfnZ/+L11R1731HVfX8/orIzVchleZRnzlWRUuaBgGaMVLihAxgCVIVu9ovnmhx9V+83/t2cfdnBWh+C0iwQHZFE6NvhsgONqZQAcc1AGDOIoHi0UY4s4hCOxhHEklwkO4iONQmc8rxW4dXy2HjhebyMowEFD+z2SFCawP8JWTtnMyBue+D8/K35y7s//9Z2na4685qlrvr5Wdnf8gjLmWBmVLyjOeFjGiEHHhsvIcPtVp0+xe0Xzf33ywfm/+TfyT9o5u11w20WvTWRwCBRHSEbD1cqojz0FOICP4uF88WgeykAtFuMohGOJ4FgmOGDp1QIKn/GMzuNEOFAb5OQbGDirYDMvbcI9YkkKE9pwR9nMKhuetG7zz375i/P/xH/9m1/fsORVR1n1tDUfPWstvZR8ahmTYRljYRnDSEYYB5AhmaOi8atf/+b83/zk41+2JY12zmkTSnE0C1kkI4zjSmVAHMVD2NE8LkZ8xImPBPGRXAI4UqBCaqWQRiEcqDVyXusawbGODkQqiBt5cQMeVADDuweX4kAbqmSVDV9ed4SvZvRPLvDzpwV/xZJWXHXV11d9Y6XChwz8rbWKDHu2uoyJsIzwBcWtMDZku1cw/oGbv8hvvi17bSmrjXfbBJ8ZG0BGM8/g4HJXLwPgmC0ezkIcqPliDLVQjMMSi7jkUgEFZMDSy9gHt4Jx4AOeEQ5cHh+ItE7Or1hncGzkSNmgdV9ec8VVi/uTnHWRP/G/OskvGeKKo654Oly8QwZG+B7o+TJmKshwsIwKFxSXygiNDdXplaweTvvn2eOL/Oa/o2dbE0Zr2mnlvVbeb4E185lmPlMig8FxRTICHLMYR2wO44jPExwLhcQiKLlIcKAQjmWCA8YTH/iw1jWQSJIYH3jH8fWsvJ6V1jPSmi/e8OW7GeVuRrnjyasWt6wl/7FvXAhHMbuoCcu2suzqy8yyrqVK90BfVEaljxrucCUZ8Jri9Ipmd0r9hl+8yG/+txW/9UhtTZgDvDso+AOC38V5zWmvKe03pTNNXLaRY3BcrYz6o2d1M1AGCuEAPgpx1EIhQUou4lLER3oJ++CWEY48T8I4VsnBi2vkKDUc2IheWstKaxlx1RP+8oOT/C9+zv7VPvrrX337u0//O0e9yJ/4XxayCyq/ZMnLrrbsGSVP4Sve6SqXMV1dxlh1GRgHkOH1QRw9gtmdVL7hFS7ym/8tyfm3Z9/98Fd/zf6f7s9+8c3CB41JrzHlN6YzDelsQ/pzkIFxzBAcs4XYHA7hSKAWCknUYiFFSi/huOU8jV8mOFAUBwycowZMwFaz0qovrrh8+sdVv+99/1e/vMif+C8KmQWFWzTlJUdb8gxmYKDFO5XvdL2QjNGwjKGQDK8f1qe6vbLTw5vRxEVxfPjLX1X9lv79nzQm3Iak35Aqw3ElMiCOwuFM4QgWm8XF53AJ4iNJfKQWEI58ejGfXgJxJH45SCA+RFwOH6KGy0orUMbbH33wyWf++Yt8Zl7hFgx5EeJYDMuYr3IPtMon0Goy3BEqI3RBITIADg/iMKIJ5b93C5/93/V/P/uoIe42JDP1qWyA46pkABzThaNpgoP4iBMfCeIjiVrIp0jpRRy3SHCgltGJ8PhceHRYKz6yFZSVVrLiii8su/zvZJRPXsbPX+QzczLGAV9Ww6v9Si8lL1UGxOEFYwPhkJxuODleCo5PPvlkns/Wx7164CNXn8rDrkhG/dH7GMc0wTFDcMAS0EdyLp+cB6VQC/k0DeGA8cSHsJQDoaO/g7LickZczgjLnrDkcItm8l+f5V7KX/DPIY55Q16wtQXXWGBW+5VdSj69jLILSpkM1euBOLriLw3Hn3pPIgdWJOZG4plIIlufzNUn8yEclyYD4JjCOGLTGEccNZtPoObySVKK+EjPYxwcCuFYzIGQDBg+93spC/OFJY//s2e51E8+8n7+E+unP/p/3z99WThmZW7OkOcBjtJ1oOGn8KEPGc+XYb6AjF4F4uBeJo5/U/xA+uHP9B9/vPO9n/yh9z4kAn0kC5DFJcrAOGAx5GM6H5/BJYiP5CzBgUI4YBBHjlvI8Qs5jGMxJ6ACGRlh0ecXXe69H3z3k0v4+fN8Zkbi5nSAY94x6FsFc47JDAxrxgYrd9CyLiDDAizInS573LTHTUaGAT6B4juhOmCBZWjguwn6etKvAhYoIEPxekQn+lJxlPz8f+//MBLLROK5+kQ5jpcso/7w/brJwtFU/mgqH5vKx6ZBcdRMPoFCOGAp4iM9l0vPgzgUwgETFgiOxZy4mBUXs0DGgsv9y6e5Ty7n589ymWkxPauKs6Y6Z+lztj5r67OWMWsZM7Bpy5g2QVOmOWWak7AJAzcOssZ00ChsRAMNg+whzR5S7UHYgGoPKHa/4qD6ZFAvrEdywdgQ7GhK7zyS/9TJX9I/9p9470eOMpF4vj5xuTLqDz+om8wfTRIcU/n4FMaRmMY4kqjZfAqUS83mgAwYN0dwzOd4FMIBExeysIyw4HLzVkr+yQ8v6e/1L7L+H9jmH2W8P85n/riQ/eNC7o9o+dwf4vJ/mM//t6hc/h+R/hvSP8wWUP+A9Pezhb+fAf0BqPgHmeLXMsWv+bjfJ33VK37VO/6qd/x7XvH3nMLvWrmvKO6f2pf1X0Lio59GDrxIDA2PS5QBcEwAHDEUwjFFcMAgjlxyJpeayWEcKIQDxs8RHPM5YT4LwjKy4rzPzzvpWSNxGr7N9RJ//uNvfvPJF+zn8n6l/M9+eX3PiRxmI/FCfeISZWAcEwTHZD4+iX0kpnKJaVAShXDA0sQHN8vgmMvyc1lhLotxzGdFUEaY9/g5KzWjxk4//tkntZ/PjuOnv7i+Y0cOMpFYHuC4NBkBDhiQMZmLT+aADFhyCuNIoWZyaRrCMZvlZrP8bDbAQQI45jLCnMvPmslp5eikhuNl4XhkRvb9MI6XL6P+8Dt14/nYeD42kYtN5OITOYwDhXDAUsRHehrhyHI0hAMmoOayIs4XZl1uxkhOyYc1HC8Tx54fOcrXx48vT0b9wXfqxnMxUnwClyA+kpMEB2o6myZx0xgHT6M4ZrPibAbmCzMON20kp6QajpeH4yGL47JkABxjudgYwQF9JEhJhGMym5rMpqZwaRTCAeOnMQ4BlEFhHDMIh56crOG4bBwvW0aAYwzKgCXGEY5sEoVwwNKTBMdUlpticExn+OmMMJ0JcOB8YdrhpvTkhFjD8bJxHOYjFMclyKg/+G7daC42CnGgxrMJUpL4SKEQDhiHcExleBrCARNRMxlx2hOnbW6yhuPl4ngP4ShE4ieXJyNCcYxm42O4xBjBQUoRH+kJhCPDkXjGh4CiOKZ9gGMK4hiv4Xi5OHYhjtjJ5ckAOEaysZFsfBSXGMMlUePZFCk9kaFxEwQHSZgkOKZ8kSRNeeKkzU9cMo4v4k2wX//mMnFYkd1MGY6XLCPAgRrNJkhJ4iM1lkmNg9IkbiKIn6A4fJSIQjgmCY4x8Uj84fcv6e/1TcP4O+n01wTxa6LE9vuC9PuCTPsq0+/xKAX1uzQO9Pdw6t/j1L+LSuP+a1pK+ztMv4NKan87ob1yKP1Tybms2+cf/vj6Q4SjGImdXp6MyP6HdcPZ2DDBMZJNjCAcmSRqLJMipccIDhKQMeGjBBTFAQM4Jmx+XE+NSUf/U+6y/l7fNK3+R48HHu8O7O4N7O73M/XtHKB6mXoeH6K6UY8Oo6AjVNejo66HoE5QrPNhrOM9XDvq3XgbqfXdeOs7oJZ3Ei3vJJrfjje/GWv69uHXFe+S/rH/WD+9/tCJ7GUjh8V6jONSZCAccVJiJINKjmAcKRTFASM4fJ4kTASJJAkEcAjjRnpMjo+k9958/8ll/L3+R9sZ2N8fPDwajMUH44nBeHIAFQP1g1L9sVRfLNV3BOrFpXuO0j2HuG4Q133ARZm69rmufb5rn+9E7fEdIKFjT2jfBbWRWnfE1h2x5bHQ8pBrfif5dS1zKY/sTz689rZ+/ZEb2c9FDo8hjsuSAXAMZeNDmfgwKIFCOGAp4iONGstwYz6NHyM4mMRxXwQmPAk17gjjJjemJkf4w+HEzjdc4+jD79g/+qH2g+//n/nsy8HheoBFMjWU5od4YYgXB1EcaICTUP2c1J8G9YHkvrTcm5Z7U7ielAJKKt20hBoldSXUrrjaFdc6YR0xXHtMBx3pbbDWA61lV25+JHzdeDlPZf/SORU//JH2/Z88fvbRP5Ly195Qrr9rXd/xI/uFyNFJfezs8mRAHJk4KUF8JIcJDlJ61EdxKCSDJKCADI8m4RxxzOLH9PSIFB/mDobiu4OHjwZ23x14/Pa/cMyXg8P3gQxeGJLkYVkdUtQhWUMNoiRtQNJR/ShR7xMNWq+AMntQvNmNs6IcrguVtjtJHSmU055y2pNOW9Jpi1uth3rzrvx18+Us9vlncu5L/y7xpX+f/tJfCdfeVK69Y4CxsQfGRuToFOC4NBmR/e/VDWbig1AGKTmMSw37oBFQmsQRHzwNyPBQIhPGMeZKY7Y4ZvKjWmpESgzzR0PJ/cHYzuDBo1upo5eDI5MZTHNDojykasOaMaybQxpuEGQNataAiusH2f1gzY7dRyNrdsCyHbxyx+1GiW4U5EVFr0v0ugRQJ8jv5P0OWDvvt3N+G+e3pdzWmNW8r33dKr6Uf9rMQxWweEO+9pYGZsYjN7KbjRwU8di4TBkBjsFMYpDgGPJRGMewn0YhHCQow+NHPYEpkIFzYQ7wMWryIxo3oqSGxfgQdzSY2B843Pn3T05fBo7sIMcPycqQZgwbFtzvEQe2BNVttOEO3pBJc9DbaeAFNfACIwouAqWr/RS/R/G7Fb9bBkVBmaiU6SJ1iplOMduBErLtsDY+25b2WxNO84H+dev4s/+7/m3hO9e+LUIW5vVHLria7OWAjMMTODYuV0Zk73t1A5n4AMLho5KDBAeK4hj2OdSIx414PEkYITKYpFGXJoP/daRR4EMYMQCRYTk1xMcHkwcDhzuHH36n2l/ne7/4xYW+rWSyA5wwKKtDmjFEcKCdYumWoHA3JheHWIDA8uBeKkP1e1Q/kAFwZKKkLhnJyHbCsAwx1y7m2gVQG59rTWdaAA7jgji++3HVt7YeP/sIyHhbv/7Qxiz2C/BqclL5gvKyZUAcfnzAT5CSg0Ep4iONGvY4Ek9DOGAiyEWxMmAOzJZGLGnEFEd0flhOD/GJgcRB/+HOn/uu/5Mfh1j88pf/T7H4u1z6gjj6OWFAUgc1Y9DAB52EWeB9ushWXVhGLyOjR/VCLBQ/yspAA6NURjaQQXHE3eZ9459eDMer++r/nnny3Y9D773ZP/zZN7QilKEBGbuZyH4e3NUoZXG5MiJ736/r9+P9DA7UoJ8ipQe99BCOI1EcQpAbyGCScQ5KAdnyiCkN68KQnB4EPg77D3f79h6P7D2e2t+d2t+d2Nvpffhez3vv/i7PX+RP/D9ksv1pgGNAMwZ1vCP9gMGycMIs3FIW1WV0PU9GG6mVz7WkM81xt+niOA6NL/272Jf+/3jHt7nOb3Odb/BN3+K+9Ff8tTckPDN2M5GDQuToGNzvAiyuTkaAg5QkPlIDHmjQS5O4QQYHSRhyhWGcSJKYKAsiA+BQhm1l2JSGNGFI5gb55EAq1h8/6Dva7zvYA+3v9u7t9u7u/J4kXRBHX1rol9QB1RxAOBgWfWQ/UMICxrKAMgIWCvmQUS4jYFEuIw9wpF4QR8z60l+lv/Qt/tq3BTAq3pDgZ0/1+rvG9UcOlJEPZFzmt9ZyGQBHn59AIRz9HgrjGPDSKIQDxoNcfggkkEQmIsORmZQghMNShgx5SBMHFX5QTA/wyYF0oj+V6E/F+5Pxvnis7+jwLs9d5E/8Dy2nLy32SWq/aqLzTcIsnMAEkdHD1B0aGFhGF5HRSWR0PEdGvoXLtaSyEIf5d+UL3edY2jevvSVfe0e7/q5+/T3j+nvm9YcWYLHjgXugB/BDRqzKpeSSZQAcvQiHl+jzkqh+L0VK9xMcAx4HcrkBF8iACUyBjCGHJjMpOFsZslUc9DGoS4OqOKgIAzI/IPEDIj8gcP1cui+Z6D08PP35c9as/+rXvx5JcL2c2CdpfRBHH2WB9x0PWMDNYlkWKHZg+F2fTgbAkW9OZZviXuO+2bmj/erXvz7/Nz/+6S+uvSUDE4/t6zvu9V3/+q4f2csAFvhDxucpI7L3UV2vl0BRHH1eqo/BAXK5fhfJADhIwgCDY9BBSUxhHHZYBsChDlrqoKkMGsqgLg9q8gBKkfoloY9P9ybi3/Se85DiLwvHPfF0Lyf1ynqfavXRw280WrDBNMXRzciIVpLRiWVkOiSWRTbEgpWBceSa4n7jgd3wSP3Xmec8K/gT7fjau/r1xw5YnHGQA4t3DgswxOKk/nOVEdn9qK6H4Oj1kiiEA+SmUQgHjEdRHCBHZApk4Gx50FaY1CCAQwOZJEMbMLQBXR1Q5X5R6E2neo6O/o/jk2p/3zefvR89iHcn+R5B6ZWNXtXqJQdmsWcVEBZuN2JBZEQZGV1EBmXxwjIQjkSm8dBp2NEj74j/4bTq65//Jvvs2lvK9UcWXtMVK0ZiAAQxgT5kfJ4yMA5YsgfjSIFcEMXR53IoiqPfFfodWiCDSR6waQqTirPUAUtj0nGmPmDo/brar8i9PN+TSHTvH/yxbsof/YD94zo/+vE/t92uvaNoLNWdFntEtVcxezWbnnnTw8joxmEWURzLAuNgWGAZ7RVl8Cgso5nDNaXzjcls45HXsGdFHqrX3xL+RM2bP/gp+5sL3/vR1/jMtTcl8KlzxwUz46hYHz+pj5/Cwot3Pj8ZAEe3l+gmOHrcZI+b6nERjjSJ6yU4+ly+z0EJfQwOkgSyUXJ/BRzIRLkMDbHop+lan6r0SlJPmuuOJ6L7h107e/07ezP7hzP7R0M7B52P94CMo2Q0yXfzSo+s96hWj2YzMpzugAXGEQ1keF0Ky8LvlFkWmdDAELPhgQG/tbIDA1RoShcgjlxDPNNw4NbvmJH3lOtvCde+lW57g+t/W+h/W2j+Nvelb3HX3pTIBQWt2Tkuk/Hkc5cR2f0BxOEmut0kCuGApXsYHL0O1+vwKIoDJgbZIRkkBWcp/ZbKpAWxLGB9ht6nab2K0iOK0Ecyehjr2j/q2juEHXUdxKOxVDQpdPNyt6R1KybC0U2OX2RZRMlZBfTEAiqjE8WygDICFkBG9mIyCo3pQmMq35DINcQy9ftuZMe8/lC79o587U3x2huwN6Vrb6vwQyiSAb6pkrHxxZIBcETdRJTI6HZTNISjx0n3OByK4uh1BCaxz0ZJTDKT0mfRVCYNZKJ0JqPPAPXqei/2IXXzQneKiybS0XgqGk9HE1w0yUfTUlRQkIxu1epWiQwVn7AXFJiAsSygjA6mdjHDDAwso5XIaCEygksJKwPgKDQk8/XxXP1RJnLgXd91rj+2rj8yrz80YCb4brLrRfaRjCJc6vdFlBHgIKWiGEe620FxPUE8SehxhF4bJZIkJrnXlvssVBUZZqmMXpRhBOl6j6b3KFq3pHSLcrcgRXmUHBWUqKhFZZ2VESXntTIs8JlIjAyvk5HRIfkBC0ZG26eWkSo2JAvgFfh4PhLLRQ4zkQM/su9F9lA+YAG+mxTQJ9AvrIzIzg/qutxEl5vsojgcVDpKcJB4FMBhCySRiZFh0RQmFWSiNCbKIpDRg9JhmtGt6t2K3i1r3bIWBelR2YgqJki1oqpNTAQyusgJe5RFJz7ihGXhh1lkMAsio5XIaCEymqvLACxgeDemRDGSKETihUgsHzliK6DvJl/YqwmSEdn5YV0nlNHlJLucFA3hgHEoIMNGCUyBDJCFkpmUIFNl0pj0HoNmMJk9utmN0nBRlWYRFih89Dc645mwIOeoMTI6UERGOyOjjZHRSmXwFWQ0ERmNgYxCSAbdcwe861ysjxcj8WPwDlIcmTj5Yn4CZWVAHE6SRHGkSVCGjeJJQpTBAbLEbktikrtLZJjVZRAW3SAjSDe6qQyQFdWtqEazo5rdhVLtrjIZnUHsgUgeK6OdkdFGZWAW2fDAyIUHBuw8GcehEmVbaPyXIAPg6HCSHQQHKd3ppLvsdJfNkXgUxQEToxYtJANnKkwqk9Zt0HQmysKI6mYowqILxLIAMjppitMZltEhsyETNMoC42gNZGRbQjJyIRZcPmBBZFzB3n5XLCPA0eGkUACHnSZxKIqjyxZAFiqQwSSDTJTCpOIMjUkPBUzQMIsuzezCJmh2p0qrIKODnP7NymiXWRZ+m8SyyLSKLItsiAWU0RQMjN8WGZGdH9W1O0lYqsNGpUlcZxAPsvhOi8oAOEgSzpS6TLmrmgwDVYZD17tABpPZhVlgHJ1BrAyAo0N1OhSU2xGW0U5jj8qCZyIREzCWBZHRXElGI5HRQGTU/82VEXmMcNjJdjtFCnCQ+A4LyQA4SCITYoFlkBScoXQZKpMWhFmU4ujUTKZARodqdag2E2WBcbQrbruMCslooyzgOWoBCyKjhZHRzBSwKJGR+psvA+KAMtpg7XaaiWu3QB0WTxKYIAtT7DQlJplJ6TRQKpOG07VOXWcycBoKy+gAWR2YRUhGu2K3Kw4TZYFxtJGjv1kZreSEPfbkG1ozn2VY5AIWRAYzMP7my0A4sAxYGmSl2ywsA8aTiAxTZJKYZBRhUQmHTsMyOkBGh0YzmYCJ9iAbVyrDaZfdtiBWBjgXvpWc18qesEdlNGMWWEYTlpFjBka+4bdPRuTxj+sqyQA4SHwbg6PdRIlMjAyDpjCpIF3t0DUmPUjTGRlGu2biVLO9TEabQnNwstNWIgOAoFEW+CRfVkYzI6MJsSAy6MBowAEZ9b9NMlgcIRmtMIqjzeTbTIEpkAEyUDJJYVLbdZrGpIM0lMFEWZhtICtIKZMhYxmtNMltDctoEdnYgxczDIssZdGIAzIaGBlXeVbBF0QGxVFBBoxvNWlCK5ERZEgkmYnI0BVGRhgHZqG3gYwgbCIko1WxWhU7nNMq00pltKBEj5XRLFITwamcTJQFkNHAyKj/bZWBcFxEBsYBE1sNlIQqxaErJJVJA2konYmyADJaQyEWZTjkkIwW2W2RaKUymlGC3yyEznhuCp+9SAuz+K2WEXn0k7rnymgBCThDaDFKccBkkC636gqTGqRpTDqT0arSAhktisVk42S7RXZCSaUymkWU3xyW0UTjQ+e1MixgAYvfdhkQxwVlGFgGk4TTZaYyHFplGS2q3qIaTCZOQYVxyDTMoll2miWXyWsOZGAcTQKKsgA1UhbMqZyQRa7hyk/Y+yLLoDheTEYzSALpUoteigOnqUwaE2JRAUezQrOCZJvJwUklMtxm0WsK8psCGQBHo5Bp5FGh078bPr9TOb/4MhCOTyVDZ5NJCkhDqUwaTtWZjCCFlWE2KVYTlhHC0SQ7TRLNxYluU4kMaKIRR1kAGQ0oRkZ9TUYVGZFHP6377DKaaJqCqiBDRQEWTTgDpKBMJiCjSUbZQVKZDJHmNaIErzFggWU0BFEW2frP4/Tv/7JksDg+mwwtkAFTcarapGpMepBCZRiNihkkW0w2SEI5TG6jSCuV0YDi/YawjHqOVpPxfBmRhxjHS5bRqKmNKkpj0nGK3ghA0CiLMhlSJRliSEaD6DUItFIZ9SiuJuOFZSAcVyNDa1T0hiAjSDaZrCDJZnJAIsoNEkpl1POoTH1NxmeTEXn4s7orkNGgag0VZchARj2JYVEmQyyVUS+49YLHRFkwMriajE8vI8Bx9TLqZaOekVEvWyAJZQeJDpOLq8m4fBkYR01GTUa5DICjJqMmo6KMyMOf19Vk1GRUlBF5D+GoyajJKJMBcdRk1GRUkkFx1GTUZJTKiLz3cV1NRk1GRRkBjpqMmowSGRhHTUZNRrmMyLsf19Vk1GRUlBF59xd1NRk1GRVlQBw1GTUZlWSU4KjJqMkIZLA4ajJqMkIyIu/+sq4moyajogyEoyajJqOCjMg7v6yryajJqCiD4KjJqMkokxF551d1NRk1GRVlIBw1GTUZFWSU4KjJqMkIZLA4ajJqMkIyIm//dV1NRk1GRRkIR01GTUYFGQBHTUZNRkUZEEdNRk1GJRmRt/9jXU1GTUZFGQhHTUZNRgUZkbcYHDUZNRmsjABHTUZNRomMyFv/qa4moyajogyAoyajJqOiDIijJqMmo5KMEhw1GTUZ/4np13U1GTUZFWVE3sQ4ajJqMkplIBw1GTUZFWQEOGoyajJKZETe/E1dTUZNRkUZAEdNRk1GRRkIR01GTUYFGZE3QjhqMmoyAhmRNz75z6qHNM639dtyAAAAAElFTkSuQmCC">
@@ -164,11 +368,101 @@
 
   <!-- HOME -->
   <section id="home" class="view active">
-    <div class="hero">
-      <h1>Pick your day 💪</h1>
-      <p>Tap a day to see your exercises. Check them off as you go, and hit <b>Watch how</b> to open the TikTok for any move.</p>
+
+    <div class="seg" id="seg">
+      <button class="seg-btn active" data-panel="workout" type="button">💪 Workout</button>
+      <button class="seg-btn" data-panel="nutrition" type="button">🥗 Nutrition</button>
     </div>
-    <div class="days" id="dayCards"></div>
+
+    <!-- WORKOUT PANEL -->
+    <div id="workoutPanel" class="panel active">
+      <div class="hero">
+        <h1>Pick your day 💪</h1>
+        <p>Tap a day to see your exercises. Check them off as you go, and hit <b>Watch how</b> to open the TikTok for any move.</p>
+      </div>
+      <div class="days" id="dayCards"></div>
+    </div>
+
+    <!-- NUTRITION PANEL -->
+    <div id="nutritionPanel" class="panel">
+      <div class="hero">
+        <h1>Track your food 🥗</h1>
+        <p><b>Calories</b> are required; protein, carbs &amp; fat are optional. Set goals to track your deficit — every day is saved for the whole year.</p>
+      </div>
+
+      <div class="cal-card">
+        <button class="cal-reset" id="resetCal" type="button" title="Reset this day" aria-label="Reset this day">↺</button>
+
+        <div class="day-nav">
+          <button class="day-arrow" id="dayPrev" type="button" aria-label="Previous day">‹</button>
+          <button class="day-label" id="dayLabel" type="button" title="Open calendar">Today <span class="caret">▾</span></button>
+          <button class="day-arrow" id="dayNext" type="button" aria-label="Next day">›</button>
+        </div>
+
+        <div class="cal-num"><span id="calTotal">0</span><span class="cal-goal" id="calGoalWrap"></span></div>
+        <div class="cal-label">Calories</div>
+
+        <div class="goalbar" id="goalBar"><i id="goalFill"></i></div>
+        <div class="goal-status" id="goalStatus"></div>
+
+        <div class="macros">
+          <div class="macro p"><div class="v"><span id="pTotal">0g</span><span class="mg" id="pGoal"></span></div><div class="k">Protein</div><div class="mbar" id="pBar"><i></i></div></div>
+          <div class="macro c"><div class="v"><span id="cTotal">0g</span><span class="mg" id="cGoal"></span></div><div class="k">Carbs</div><div class="mbar" id="cBar"><i></i></div></div>
+          <div class="macro f"><div class="v"><span id="fTotal">0g</span><span class="mg" id="fGoal"></span></div><div class="k">Fat</div><div class="mbar" id="fBar"><i></i></div></div>
+        </div>
+
+        <div class="goal-edit">
+          <button class="goal-btn" id="goalBtn" type="button">🎯 Set goals</button>
+          <div class="goal-form" id="goalForm" hidden>
+            <div class="gf-row"><label>Calorie goal <span class="opt">(deficit target)</span></label><input class="inp" id="goalInp" type="number" inputmode="numeric" pattern="[0-9]*" min="0" placeholder="e.g. 1800"></div>
+            <div class="gf-row"><label>Protein goal <span class="opt">g · optional</span></label><input class="inp" id="goalP" type="number" inputmode="numeric" pattern="[0-9]*" min="0" placeholder="e.g. 150"></div>
+            <div class="gf-row"><label>Carbs goal <span class="opt">g · optional</span></label><input class="inp" id="goalC" type="number" inputmode="numeric" pattern="[0-9]*" min="0" placeholder="e.g. 180"></div>
+            <div class="gf-row"><label>Fat goal <span class="opt">g · optional</span></label><input class="inp" id="goalF" type="number" inputmode="numeric" pattern="[0-9]*" min="0" placeholder="e.g. 60"></div>
+            <button class="goal-save" id="goalSave" type="button">Save goals</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="add-card">
+        <h3>Add food</h3>
+        <div class="field">
+          <label>Name <span class="opt">(optional)</span></label>
+          <input class="inp" id="nameInp" type="text" autocomplete="off" placeholder="e.g. Chicken &amp; rice">
+        </div>
+        <div class="field">
+          <label>Calories <span class="req">*required</span></label>
+          <input class="inp" id="calInp" type="number" inputmode="numeric" pattern="[0-9]*" min="0" placeholder="0">
+        </div>
+        <div class="row3">
+          <div class="field"><label>Protein <span class="opt">g</span></label><input class="inp" id="pInp" type="number" inputmode="decimal" min="0" placeholder="0"></div>
+          <div class="field"><label>Carbs <span class="opt">g</span></label><input class="inp" id="cInp" type="number" inputmode="decimal" min="0" placeholder="0"></div>
+          <div class="field"><label>Fat <span class="opt">g</span></label><input class="inp" id="fInp" type="number" inputmode="decimal" min="0" placeholder="0"></div>
+        </div>
+        <button class="add-btn" id="addBtn" type="button">+ Add to this day</button>
+      </div>
+
+      <div class="log" id="logList"></div>
+
+      <div class="sec-title">Diet recipes</div>
+      <div class="recipes" id="recipeList"></div>
+
+      <div class="cal-modal" id="calModal" hidden>
+        <div class="cal-sheet">
+          <div class="cal-mtop"><div class="cal-month-nav"><button class="cal-nav" id="calPrev" type="button" aria-label="Previous month">‹</button><div class="cal-mtitle" id="calTitle">Month</div><button class="cal-nav" id="calNext" type="button" aria-label="Next month">›</button></div><button class="cal-monthreset" id="calMonthReset" type="button" title="Reset this whole month">↺</button><button class="cal-close" id="calClose" type="button" aria-label="Close">✕</button></div>
+          <div class="cal-dow"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div>
+          <div class="cal-grid" id="calGrid"></div>
+          <div class="cal-months" id="calMonths" hidden></div>
+          <div class="cal-hint">Tap a day to view it. History resets at the start of each year.</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- RECIPE DETAIL (same tab) -->
+  <section id="recipeView" class="view">
+    <button class="back" id="recipeBack"><span class="arrow">←</span> Back to food</button>
+    <div class="rv" id="recipeBody"></div>
   </section>
 
   <!-- DAY DETAIL -->
@@ -396,8 +690,416 @@ document.getElementById("resetBtn").addEventListener("click", ()=>{
   renderExercises();
 });
 
+/* ---------- Nutrition: per-day log for the whole year + calorie/macro goals ---------- */
+const NUT_KEY = "okko-nutrition-v2";
+const WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MO_FULL=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function dateKey(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function todayKey(){ return dateKey(new Date()); }
+function yearOf(k){ return k.slice(0,4); }
+function parseKey(k){ const p=k.split('-').map(Number); return new Date(p[0],p[1]-1,p[2]); }
+function shiftKey(k,delta){ const d=parseKey(k); d.setDate(d.getDate()+delta); return dateKey(d); }
+function firstDayOfYear(){ return yearOf(todayKey())+'-01-01'; }
+
+function loadNut(){
+  let raw=null; try{ raw=JSON.parse(localStorage.getItem(NUT_KEY)); }catch(e){}
+  const data=(raw && typeof raw==='object' && !Array.isArray(raw))?raw:{};
+  if(!data.days || typeof data.days!=='object') data.days={};
+  if(!data.goals || typeof data.goals!=='object'){
+    data.goals={ cal:(typeof data.goal==='number'&&data.goal>0)?data.goal:null, p:null, c:null, f:null };
+  }
+  ['cal','p','c','f'].forEach(k=>{ if(typeof data.goals[k]!=='number' || !(data.goals[k]>0)) data.goals[k]=null; });
+  delete data.goal;
+  try{
+    const v1=JSON.parse(localStorage.getItem('okko-nutrition-v1'));
+    if(Array.isArray(v1)){ if(v1.length && !Array.isArray(data.days[todayKey()])) data.days[todayKey()]=v1; localStorage.removeItem('okko-nutrition-v1'); }
+  }catch(e){}
+  // yearly restart: keep only the current year's days
+  const y=yearOf(todayKey());
+  Object.keys(data.days).forEach(k=>{ if(yearOf(k)!==y) delete data.days[k]; });
+  try{ localStorage.setItem(NUT_KEY, JSON.stringify(data)); }catch(e){}
+  return data;
+}
+let nutData = loadNut();
+let selectedKey = todayKey();
+function saveNut(){ try{ localStorage.setItem(NUT_KEY, JSON.stringify(nutData)); }catch(e){} }
+function dayLog(k){ return Array.isArray(nutData.days[k])?nutData.days[k]:[]; }
+function ensureDay(k){ if(!Array.isArray(nutData.days[k])) nutData.days[k]=[]; return nutData.days[k]; }
+function totalsFor(k){ return dayLog(k).reduce((t,e)=>{ t.cal+=(+e.cal||0); t.p+=(+e.p||0); t.c+=(+e.c||0); t.f+=(+e.f||0); return t; }, {cal:0,p:0,c:0,f:0}); }
+function fmtN(n){ return Math.round(n).toLocaleString(); }
+function canPrev(k){ return k>firstDayOfYear(); }
+function canNext(k){ return k<todayKey(); }
+function dayLabelHTML(k){
+  const d=parseKey(k), md=MO[d.getMonth()]+' '+d.getDate();
+  const label = k===todayKey() ? '<span class="today-tag">Today</span> \u00b7 '+md : WD[d.getDay()]+' \u00b7 '+md;
+  return label+' <span class="caret">\u25be</span>';
+}
+function setMacroTile(idV,idG,idB,val,goal){
+  document.getElementById(idV).textContent=fmtN(val)+'g';
+  const mg=document.getElementById(idG), bar=document.getElementById(idB), fillEl=bar.querySelector('i');
+  if(goal>0){ mg.textContent=' / '+fmtN(goal)+'g'; bar.classList.add('show'); fillEl.style.width=Math.min(100,val/goal*100)+'%'; }
+  else { mg.textContent=''; bar.classList.remove('show'); fillEl.style.width='0%'; }
+}
+
+function renderNutrition(){
+  const key=selectedKey, t=totalsFor(key), g=nutData.goals;
+  document.getElementById('calTotal').textContent=fmtN(t.cal);
+  setMacroTile('pTotal','pGoal','pBar', t.p, g.p);
+  setMacroTile('cTotal','cGoal','cBar', t.c, g.c);
+  setMacroTile('fTotal','fGoal','fBar', t.f, g.f);
+  document.getElementById('dayLabel').innerHTML=dayLabelHTML(key);
+  document.getElementById('dayPrev').disabled=!canPrev(key);
+  document.getElementById('dayNext').disabled=!canNext(key);
+  const gw=document.getElementById('calGoalWrap'), bar=document.getElementById('goalBar'),
+        fill=document.getElementById('goalFill'), status=document.getElementById('goalStatus'),
+        goalBtn=document.getElementById('goalBtn');
+  if(g.cal>0){
+    gw.textContent=' / '+fmtN(g.cal); bar.classList.add('show'); fill.style.width=Math.min(100,t.cal/g.cal*100)+'%';
+    const rem=g.cal-t.cal;
+    if(rem>=0){ bar.classList.remove('over'); status.innerHTML='<span class="left">'+fmtN(rem)+' cal left</span> to reach your goal'; }
+    else { bar.classList.add('over'); status.innerHTML='<span class="over">'+fmtN(-rem)+' cal over</span> your goal'; }
+  } else { gw.textContent=''; bar.classList.remove('show','over'); status.textContent='Set a daily goal to track your calorie deficit.'; }
+  goalBtn.textContent = (g.cal>0||g.p>0||g.c>0||g.f>0) ? '\ud83c\udfaf Edit goals' : '\ud83c\udfaf Set goals';
+
+  const log=document.getElementById('logList'); log.innerHTML='';
+  const entries=dayLog(key);
+  if(!entries.length){
+    const d=document.createElement('div'); d.className='log-empty';
+    d.textContent = key===todayKey() ? 'No food logged yet \u2014 add a meal above or log a recipe below.' : 'Nothing was logged on this day.';
+    log.appendChild(d);
+  } else {
+    entries.forEach((e,i)=>{
+      const parts=[];
+      if(e.p) parts.push('P '+fmtN(e.p)+'g'); if(e.c) parts.push('C '+fmtN(e.c)+'g'); if(e.f) parts.push('F '+fmtN(e.f)+'g');
+      const row=document.createElement('div'); row.className='log-item';
+      const main=document.createElement('div'); main.className='li-main';
+      const nm=document.createElement('div'); nm.className='li-name'; nm.textContent=e.name||'Entry';
+      const mc=document.createElement('div'); mc.className='li-macros'; mc.textContent=parts.length?parts.join(' \u00b7 '):'calories only';
+      main.appendChild(nm); main.appendChild(mc);
+      const cal=document.createElement('div'); cal.className='li-cal'; cal.textContent=fmtN(e.cal)+' cal';
+      const del=document.createElement('button'); del.className='li-del'; del.type='button';
+      del.setAttribute('aria-label','Remove '+(e.name||'entry')); del.textContent='\u00d7';
+      del.addEventListener('click', ()=>{ const arr=ensureDay(key); arr.splice(i,1); if(!arr.length) delete nutData.days[key]; saveNut(); renderNutrition(); });
+      row.appendChild(main); row.appendChild(cal); row.appendChild(del); log.appendChild(row);
+    });
+  }
+}
+function addEntry(entry){ ensureDay(selectedKey).push(entry); saveNut(); renderNutrition(); }
+
+// Day navigation arrows (span the whole year)
+document.getElementById('dayPrev').addEventListener('click', ()=>{ if(canPrev(selectedKey)){ selectedKey=shiftKey(selectedKey,-1); renderNutrition(); window.scrollTo({top:0}); } });
+document.getElementById('dayNext').addEventListener('click', ()=>{ if(canNext(selectedKey)){ selectedKey=shiftKey(selectedKey,1); renderNutrition(); window.scrollTo({top:0}); } });
+
+// Calendar picker with month navigation (within the current year)
+let calY, calM;
+function renderCalendar(){
+  const grid=document.getElementById('calGrid'), tKey=todayKey(), curM=new Date().getMonth();
+  disarmMonthReset();
+  document.getElementById('calTitle').textContent=MO_FULL[calM]+' '+calY;
+  document.getElementById('calPrev').disabled=(calM<=0);
+  document.getElementById('calNext').disabled=(calM>=curM);
+  grid.innerHTML='';
+  const firstDow=new Date(calY,calM,1).getDay(), days=new Date(calY,calM+1,0).getDate();
+  for(let i=0;i<firstDow;i++){ const b=document.createElement('div'); b.className='cal-cell blank'; grid.appendChild(b); }
+  for(let d=1; d<=days; d++){
+    const key=dateKey(new Date(calY,calM,d));
+    const cell=document.createElement('button'); cell.type='button'; cell.className='cal-cell';
+    cell.appendChild(document.createTextNode(String(d)));
+    const future=key>tKey, has=dayLog(key).length>0;
+    if(future) cell.classList.add('future');
+    if(key===tKey) cell.classList.add('today');
+    if(key===selectedKey) cell.classList.add('sel');
+    if(has){ const dot=document.createElement('span'); dot.className='dot'; cell.appendChild(dot); }
+    if(!future){ cell.addEventListener('click', ()=>{ selectedKey=key; closeCalendar(); renderNutrition(); window.scrollTo({top:0}); }); }
+    grid.appendChild(cell);
+  }
+}
+function openCalendar(){ const d=parseKey(selectedKey); calY=d.getFullYear(); calM=d.getMonth(); setMonthPicker(false); renderCalendar(); document.getElementById('calModal').removeAttribute('hidden'); }
+function closeCalendar(){ document.getElementById('calModal').setAttribute('hidden',''); }
+document.getElementById('dayLabel').addEventListener('click', openCalendar);
+document.getElementById('calClose').addEventListener('click', closeCalendar);
+document.getElementById('calPrev').addEventListener('click', ()=>{ if(calM>0){ calM--; renderCalendar(); } });
+document.getElementById('calNext').addEventListener('click', ()=>{ if(calM<new Date().getMonth()){ calM++; renderCalendar(); } });
+document.getElementById('calModal').addEventListener('click', e=>{ if(e.target.id==='calModal') closeCalendar(); });
+
+// Month picker: tap the month title to jump between months quickly
+function renderMonthPicker(){
+  const wrap=document.getElementById('calMonths'); wrap.innerHTML='';
+  const curM=new Date().getMonth();
+  for(let i=0;i<12;i++){
+    const b=document.createElement('button'); b.type='button'; b.className='cal-mo'+(i===calM?' cur':''); b.textContent=MO[i];
+    if(i>curM){ b.disabled=true; } else { b.addEventListener('click', ()=>{ calM=i; setMonthPicker(false); renderCalendar(); }); }
+    wrap.appendChild(b);
+  }
+}
+function setMonthPicker(show){
+  const months=document.getElementById('calMonths');
+  const dow=document.querySelector('#calModal .cal-dow'), grid=document.getElementById('calGrid'), hint=document.querySelector('#calModal .cal-hint');
+  if(show){ renderMonthPicker(); months.removeAttribute('hidden'); dow.setAttribute('hidden',''); grid.setAttribute('hidden',''); if(hint) hint.setAttribute('hidden',''); }
+  else { months.setAttribute('hidden',''); dow.removeAttribute('hidden'); grid.removeAttribute('hidden'); if(hint) hint.removeAttribute('hidden'); }
+}
+document.getElementById('calTitle').addEventListener('click', ()=>{ setMonthPicker(document.getElementById('calMonths').hasAttribute('hidden')); });
+
+// Reset the whole month currently shown in the calendar (two-tap confirm)
+let mrArmed=false, mrTimer=null;
+function monthPrefix(y,m){ return y+'-'+String(m+1).padStart(2,'0')+'-'; }
+function monthHasData(y,m){ const pre=monthPrefix(y,m); return Object.keys(nutData.days).some(k=>k.indexOf(pre)===0 && dayLog(k).length>0); }
+function clearMonth(y,m){ const pre=monthPrefix(y,m); Object.keys(nutData.days).forEach(k=>{ if(k.indexOf(pre)===0) delete nutData.days[k]; }); saveNut(); }
+function disarmMonthReset(){ mrArmed=false; if(mrTimer){ clearTimeout(mrTimer); mrTimer=null; } const b=document.getElementById('calMonthReset'); if(b){ b.classList.remove('arm'); b.textContent='↺'; } }
+document.getElementById('calMonthReset').addEventListener('click', ()=>{
+  if(!monthHasData(calY,calM)) return;
+  if(!mrArmed){ mrArmed=true; const b=document.getElementById('calMonthReset'); b.classList.add('arm'); b.textContent='Reset '+MO[calM]+'?'; mrTimer=setTimeout(disarmMonthReset,3000); return; }
+  clearMonth(calY,calM); renderCalendar(); renderNutrition();
+});
+
+// Goal editor (calories + optional macro goals)
+(function(){
+  const form=document.getElementById('goalForm');
+  document.getElementById('goalBtn').addEventListener('click', ()=>{
+    if(form.hasAttribute('hidden')){
+      form.removeAttribute('hidden');
+      const g=nutData.goals;
+      document.getElementById('goalInp').value=g.cal>0?g.cal:'';
+      document.getElementById('goalP').value=g.p>0?g.p:'';
+      document.getElementById('goalC').value=g.c>0?g.c:'';
+      document.getElementById('goalF').value=g.f>0?g.f:'';
+      document.getElementById('goalInp').focus();
+    } else form.setAttribute('hidden','');
+  });
+  function num(id){ const v=parseInt(document.getElementById(id).value,10); return v>0?v:null; }
+  function commit(){ nutData.goals={ cal:num('goalInp'), p:num('goalP'), c:num('goalC'), f:num('goalF') }; saveNut(); form.setAttribute('hidden',''); renderNutrition(); }
+  document.getElementById('goalSave').addEventListener('click', commit);
+  ['goalInp','goalP','goalC','goalF'].forEach(id=>document.getElementById(id).addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); commit(); } }));
+})();
+
+// Add-food form + reset
+(function(){
+  const calInp=document.getElementById('calInp');
+  const numOr0=id=>{ const v=parseFloat(document.getElementById(id).value); return v>0?v:0; };
+  function submit(){
+    const cal=parseFloat(calInp.value);
+    if(!(cal>0)){ calInp.classList.add('err'); calInp.focus(); return; }
+    calInp.classList.remove('err');
+    addEntry({ name:document.getElementById('nameInp').value.trim(), cal:cal, p:numOr0('pInp'), c:numOr0('cInp'), f:numOr0('fInp') });
+    ['nameInp','calInp','pInp','cInp','fInp'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('nameInp').focus();
+  }
+  document.getElementById('addBtn').addEventListener('click', submit);
+  ['nameInp','calInp','pInp','cInp','fInp'].forEach(id=>{ document.getElementById(id).addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); submit(); } }); });
+  calInp.addEventListener('input', ()=>calInp.classList.remove('err'));
+  const rb=document.getElementById('resetCal');
+  let armed=false, armTimer=null;
+  function disarm(){ armed=false; rb.classList.remove('arm'); rb.textContent='\u21ba'; }
+  rb.addEventListener('click', ()=>{
+    if(!dayLog(selectedKey).length) return;
+    if(!armed){ armed=true; rb.classList.add('arm'); rb.textContent='Tap to confirm'; armTimer=setTimeout(disarm,2500); return; }
+    clearTimeout(armTimer); disarm(); delete nutData.days[selectedKey]; saveNut(); renderNutrition();
+  });
+})();
+
+// Segmented control: Workout <-> Nutrition
+document.querySelectorAll('#seg .seg-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#seg .seg-btn').forEach(b=>b.classList.toggle('active', b===btn));
+    const p=btn.getAttribute('data-panel');
+    document.getElementById('workoutPanel').classList.toggle('active', p==='workout');
+    document.getElementById('nutritionPanel').classList.toggle('active', p==='nutrition');
+    window.scrollTo({top:0});
+  });
+});
+
+/* Timer sound + helpers */
+let audioCtx=null;
+function ensureAudio(){ try{ audioCtx = audioCtx || new (window.AudioContext||window.webkitAudioContext)(); if(audioCtx.state==='suspended') audioCtx.resume(); }catch(e){} }
+function beep(){ try{ ensureAudio(); if(!audioCtx) return; [[880,0],[1120,0.55]].forEach(pr=>{ const o=audioCtx.createOscillator(),gn=audioCtx.createGain(),t0=audioCtx.currentTime+pr[1]; o.type='sine'; o.frequency.value=pr[0]; o.connect(gn); gn.connect(audioCtx.destination); gn.gain.setValueAtTime(0.0001,t0); gn.gain.exponentialRampToValueAtTime(0.3,t0+0.02); gn.gain.exponentialRampToValueAtTime(0.0001,t0+0.5); o.start(t0); o.stop(t0+0.5); }); }catch(e){} }
+function vibrate(){ try{ if(navigator.vibrate) navigator.vibrate([200,100,200]); }catch(e){} }
+function fmtClock(s){ const m=Math.floor(s/60); return m+':'+String(s%60).padStart(2,'0'); }
+
+// Resettable timer control (built into the recipe view)
+let recipeTimers=[];
+function clearRecipeTimers(){ recipeTimers.forEach(fn=>{ try{ fn(); }catch(e){} }); recipeTimers=[]; }
+function buildTimer(total){
+  const wrap=document.createElement('span'); wrap.className='tmwrap';
+  const btn=document.createElement('button'); btn.type='button'; btn.className='tm'; btn.textContent='\u23f1 '+fmtClock(total);
+  const rst=document.createElement('button'); rst.type='button'; rst.className='tmr'; rst.textContent='\u21ba'; rst.title='Reset timer'; rst.hidden=true;
+  let remaining=total, iv=null, state='idle';
+  function stop(){ if(iv){ clearInterval(iv); iv=null; } }
+  function start(){ ensureAudio(); state='running'; rst.hidden=false; btn.className='tm running'; btn.textContent='\u23f8 '+fmtClock(remaining);
+    iv=setInterval(()=>{ remaining--; if(remaining<=0){ finish(); } else { btn.textContent='\u23f8 '+fmtClock(remaining); } },1000); }
+  function pause(){ stop(); state='paused'; btn.className='tm'; btn.textContent='\u25b6 '+fmtClock(remaining); }
+  function finish(){ stop(); state='done'; remaining=total; btn.className='tm done'; btn.textContent='\u2713 Done'; beep(); vibrate(); }
+  function reset(){ stop(); state='idle'; remaining=total; rst.hidden=true; btn.className='tm'; btn.textContent='\u23f1 '+fmtClock(total); }
+  btn.addEventListener('click', ()=>{ if(state==='running') pause(); else if(state==='done') reset(); else start(); });
+  rst.addEventListener('click', reset);
+  recipeTimers.push(stop);
+  wrap.appendChild(btn); wrap.appendChild(rst); return wrap;
+}
+
+/* Open a detailed recipe IN THE SAME TAB (its own view) */
+function openRecipe(r){
+  clearRecipeTimers();
+  const body=document.getElementById('recipeBody'); body.innerHTML='';
+  const mk=(tag,cls,txt)=>{ const el=document.createElement(tag); if(cls) el.className=cls; if(txt!=null) el.textContent=txt; return el; };
+  body.appendChild(mk('div','eyebrow','OKKO Recipe'));
+  body.appendChild(mk('h1','',r.name));
+  if(r.sub) body.appendChild(mk('div','sub',r.sub));
+  const chips=mk('div','chips');
+  [['cal',r.cal+' cal'],['p','Protein '+r.p+'g'],['c','Carbs '+r.c+'g'],['f','Fat '+r.f+'g']].forEach(pr=>chips.appendChild(mk('span','chip '+pr[0],pr[1])));
+  body.appendChild(chips);
+  if(r.desc) body.appendChild(mk('p','desc',r.desc));
+  if(r.meta && r.meta.length){ const mg=mk('div','meta-grid'); r.meta.forEach(m=>{ const t=mk('div','meta-tile'); t.appendChild(mk('div','mv',m.v)); t.appendChild(mk('div','mk',m.k)); mg.appendChild(t); }); body.appendChild(mg); }
+  body.appendChild(mk('h2','','Ingredients'));
+  const ul=mk('ul','ing'); r.ingredients.forEach(x=>ul.appendChild(mk('li',null,x))); body.appendChild(ul);
+  body.appendChild(mk('h2','','Method'));
+  const ol=mk('ol','method');
+  r.steps.forEach(s=>{ const li=document.createElement('li'); const row=mk('div','st'); row.appendChild(mk('span','stx',s.t)); if(s.s) row.appendChild(buildTimer(s.s)); li.appendChild(row); ol.appendChild(li); });
+  body.appendChild(ol);
+  if(r.tips && r.tips.length){ body.appendChild(mk('h2','','Tips')); const tl=mk('ul','tips'); r.tips.forEach(t=>tl.appendChild(mk('li',null,t))); body.appendChild(tl); }
+  const cta=mk('div','log-cta'); const b=mk('button',null,'+ Log this ('+r.cal+' cal)'); b.type='button';
+  b.addEventListener('click', ()=>{ addEntry({name:r.name,cal:r.cal,p:r.p,c:r.c,f:r.f}); b.textContent='Added \u2713'; b.disabled=true; setTimeout(()=>{ b.textContent='+ Log this ('+r.cal+' cal)'; b.disabled=false; },1300); });
+  cta.appendChild(b); body.appendChild(cta);
+  document.getElementById('home').classList.remove('active');
+  document.getElementById('recipeView').classList.add('active');
+  window.scrollTo({top:0});
+}
+document.getElementById('recipeBack').addEventListener('click', ()=>{
+  clearRecipeTimers();
+  document.getElementById('recipeView').classList.remove('active');
+  document.getElementById('home').classList.add('active');
+  window.scrollTo({top:0});
+});
+
+/* Diet recipes — detailed: description, meta, full ingredients, step-by-step with timers, tips */
+const RECIPES=[
+  { name:"Grilled Chicken & Rice Bowl", cal:520, p:45, c:55, f:12, sub:"High protein \u00b7 meal-prep friendly",
+    meta:[{k:'Prep',v:'10 min'},{k:'Cook',v:'15 min'},{k:'Serves',v:'1'}],
+    desc:"A lean, high-protein staple built around a perfectly seared chicken breast, fluffy rice and crisp-tender broccoli. It\u2019s simple, filling and makes hitting your protein target easy \u2014 great fresh or boxed up for tomorrow.",
+    ingredients:["150g chicken breast","\u00be cup cooked rice (white or brown)","1 cup broccoli florets","1 tsp olive oil","\u00bd tsp paprika","\u00bd tsp garlic powder","\u00bc tsp salt","\u00bc tsp black pepper","1 tsp low-sodium soy sauce (optional)","1 lemon wedge, to serve"],
+    steps:[
+      {t:"If the breast is thick, butterfly or gently pound it to an even ~2cm thickness so it cooks through evenly."},
+      {t:"Pat the chicken very dry with paper towel, then season both sides with the paprika, garlic powder, salt and pepper."},
+      {t:"Heat a non-stick or cast-iron pan over medium-high with the olive oil until it just begins to shimmer.", s:120},
+      {t:"Lay the chicken away from you and cook the first side undisturbed until deep golden and it releases cleanly from the pan.", s:300},
+      {t:"Flip once and cook the second side until the thickest part reaches 74\u00b0C / 165\u00b0F.", s:300},
+      {t:"Move to a board and let it rest \u2014 this is what keeps it juicy.", s:180},
+      {t:"While it rests, microwave the broccoli with 1 tbsp water, covered, until bright green and just tender.", s:150},
+      {t:"Slice the chicken across the grain, serve over the rice with the broccoli, add the soy sauce and a squeeze of lemon."}
+    ],
+    tips:["Resting isn\u2019t optional \u2014 slicing straight away lets all the juices run out.","Cook 2\u20133 extra breasts while the pan is hot for fast meals during the week.","Swap the rice for cauliflower rice to cut ~150 cal and ~30g carbs.","A \u00a35 meat thermometer removes all the guesswork on doneness."] },
+
+  { name:"Greek Yogurt Protein Bowl", cal:330, p:30, c:35, f:6, sub:"No-cook \u00b7 5-minute breakfast or snack",
+    meta:[{k:'Prep',v:'5 min'},{k:'Cook',v:'None'},{k:'Serves',v:'1'}],
+    desc:"A no-cook, five-minute bowl that\u2019s loaded with protein and fibre to keep you full for hours. Creamy Greek yogurt, fresh fruit and a little crunch \u2014 endlessly customisable to what\u2019s in the fridge.",
+    ingredients:["200g non-fat Greek yogurt","\u00bd ripe banana","\u00bd cup mixed berries","20g granola","1 tsp honey","1 tbsp chia or ground flax (optional)","Pinch of cinnamon"],
+    steps:[
+      {t:"Spoon the Greek yogurt into a bowl and smooth the top with the back of the spoon."},
+      {t:"Slice the banana and arrange it with the berries over the yogurt."},
+      {t:"Scatter the granola (and the chia or flax, if using) across the top for crunch and fibre."},
+      {t:"Drizzle with the honey, dust with cinnamon, and eat straight away."}
+    ],
+    tips:["Stir in a scoop of whey or another 100g of yogurt to push protein past 45g.","Keep the granola on the side until serving so it stays crunchy.","Frozen berries work \u2014 let them sit for 5 minutes to soften slightly first."] },
+
+  { name:"Baked Salmon & Sweet Potato", cal:560, p:40, c:40, f:24, sub:"One-tray \u00b7 omega-3 rich dinner",
+    meta:[{k:'Prep',v:'10 min'},{k:'Cook',v:'25 min'},{k:'Serves',v:'1'}],
+    desc:"An omega-3 rich dinner that roasts on a single tray for almost no cleanup. Crisp-edged sweet potato, flaky salmon with a smoky rub, and tender asparagus finished with fresh lemon.",
+    ingredients:["170g salmon fillet, skin on","1 medium sweet potato (~200g)","1 cup asparagus, trimmed","1 tsp olive oil","\u00bd tsp smoked paprika","\u00bc tsp salt","\u00bc tsp black pepper","\u00bd lemon","Fresh dill or parsley (optional)"],
+    steps:[
+      {t:"Preheat the oven to 200\u00b0C / 400\u00b0F.", s:600},
+      {t:"Scrub and cube the sweet potato into ~2cm pieces; toss with \u00bd tsp oil, salt and pepper on a lined tray."},
+      {t:"Roast the sweet potato on its own first so it gets a head start on the fish.", s:1200},
+      {t:"Pat the salmon dry, then rub with the remaining oil and the smoked paprika."},
+      {t:"Push the potato to one side; add the salmon skin-side down and the asparagus to the tray."},
+      {t:"Roast until the salmon flakes easily and reaches 63\u00b0C / 145\u00b0F and the asparagus is tender.", s:840},
+      {t:"Squeeze over the lemon, scatter with herbs, and serve."}
+    ],
+    tips:["Skin-side down protects the flesh and gives you crisp skin.","Pull the salmon at 63\u00b0C \u2014 it keeps cooking from residual heat as it rests.","Line the tray with foil or parchment for near-zero washing up."] },
+
+  { name:"Egg & Veggie Scramble", cal:300, p:24, c:10, f:18, sub:"Fast \u00b7 veggie-packed high protein",
+    meta:[{k:'Prep',v:'5 min'},{k:'Cook',v:'6 min'},{k:'Serves',v:'1'}],
+    desc:"A quick, veggie-loaded scramble that uses a mix of whole eggs and whites to keep protein high while trimming calories. The secret to creamy curds is low heat and pulling it off early.",
+    ingredients:["2 whole eggs","2 egg whites","1 handful baby spinach","\u00bc onion, diced","\u00bd bell pepper, diced","1 tsp olive oil or butter","Salt & pepper","Hot sauce, to serve (optional)"],
+    steps:[
+      {t:"Crack the whole eggs and whites into a bowl and whisk with a pinch of salt and pepper until fully uniform."},
+      {t:"Heat the oil in a non-stick pan over medium heat."},
+      {t:"Add the onion and pepper and saut\u00e9 until softened and lightly golden.", s:180},
+      {t:"Add the spinach and stir until just wilted.", s:60},
+      {t:"Lower the heat, pour in the eggs, wait a few seconds, then fold slowly with a spatula into soft curds.", s:120},
+      {t:"Pull the pan off the heat while the eggs still look slightly glossy \u2014 they finish cooking on the plate."}
+    ],
+    tips:["Low and slow makes soft, creamy eggs; high heat makes them rubbery.","Take them off just before they look fully done.","A little feta or grated cheese adds big flavour for ~50 cal."] },
+
+  { name:"Turkey & Quinoa Power Bowl", cal:490, p:42, c:48, f:14, sub:"Balanced \u00b7 meal-prep friendly",
+    meta:[{k:'Prep',v:'10 min'},{k:'Cook',v:'15 min'},{k:'Serves',v:'1'}],
+    desc:"A balanced, colourful bowl of spiced lean turkey over protein-rich quinoa with fresh veg and a cool yogurt sauce. Doubles perfectly for two or three days of lunches.",
+    ingredients:["150g lean ground turkey (93%)","\u2153 cup dry quinoa","\u2154 cup water or stock","\u00bd cup cherry tomatoes, halved","\u00bd cup cucumber, diced","1 tbsp Greek-yogurt or tzatziki sauce","1 clove garlic, minced","\u00bd tsp cumin","\u00bd tsp paprika","Salt, pepper, lime"],
+    steps:[
+      {t:"Rinse the quinoa in a fine sieve under cold water to wash off its bitter coating."},
+      {t:"Combine the quinoa and water or stock in a pot, bring to a boil, then cover and simmer until the liquid is absorbed.", s:900},
+      {t:"Meanwhile, heat a pan and brown the turkey with the garlic, cumin, paprika, salt and pepper, breaking it up as it cooks.", s:480},
+      {t:"Fluff the cooked quinoa with a fork and let it steam off the heat for a minute."},
+      {t:"Build the bowl: quinoa base, then the turkey, tomatoes and cucumber."},
+      {t:"Top with the yogurt sauce and a good squeeze of lime."}
+    ],
+    tips:["Cook double quinoa and turkey \u2014 both keep 3 days in the fridge.","Using stock instead of water makes the quinoa far tastier.","Swap turkey for chicken or lean beef mince if you prefer."] },
+
+  { name:"Protein Overnight Oats", cal:400, p:30, c:55, f:8, sub:"Make-ahead \u00b7 grab-and-go breakfast",
+    meta:[{k:'Prep',v:'5 min'},{k:'Chill',v:'6h+'},{k:'Serves',v:'1'}],
+    desc:"Prep it tonight, grab it tomorrow. Creamy oats with whey and chia thicken overnight into a high-protein breakfast you can eat straight from the jar \u2014 no cooking required.",
+    ingredients:["\u00bd cup rolled oats","1 scoop (30g) whey or casein protein","1 cup almond milk (or milk of choice)","1 tbsp chia seeds","\u00bd tsp cinnamon","Berries or \u00bd banana, to top"],
+    steps:[
+      {t:"Add the oats, protein powder and chia seeds to a jar or container."},
+      {t:"Pour in the milk and stir very well, making sure there are no dry pockets or clumps of powder."},
+      {t:"Stir through the cinnamon."},
+      {t:"Seal and refrigerate overnight, or for at least 6 hours."},
+      {t:"In the morning, stir, loosen with a splash of milk if it\u2019s too thick, top with fruit and enjoy cold."}
+    ],
+    tips:["Casein makes it noticeably thicker and creamier than whey.","Make three jars at once for a grab-and-go week.","Add a spoon of nut butter or extra fruit for a treat (adds calories)."] },
+
+  { name:"Tuna Avocado Wrap", cal:430, p:35, c:38, f:16, sub:"5-minute \u00b7 protein-packed lunch",
+    meta:[{k:'Prep',v:'7 min'},{k:'Cook',v:'None'},{k:'Serves',v:'1'}],
+    desc:"A fast, protein-packed lunch with creamy tuna bound by avocado and Greek yogurt instead of mayo \u2014 more protein, less saturated fat, and ready in minutes.",
+    ingredients:["1 can (~120g drained) tuna in water","\u00bc ripe avocado","1 tbsp Greek yogurt","1 whole-wheat wrap","A few leaves of lettuce","Squeeze of lemon","Salt & pepper","Sliced cucumber or grated carrot (optional)"],
+    steps:[
+      {t:"Drain the tuna thoroughly, pressing out the water so the filling doesn\u2019t go soggy."},
+      {t:"In a bowl, mash the avocado with the Greek yogurt until fairly smooth."},
+      {t:"Fold in the tuna and season with salt, pepper and a squeeze of lemon."},
+      {t:"Warm the wrap for a few seconds so it rolls without cracking.", s:20},
+      {t:"Lay the lettuce down the centre, spoon on the tuna, and add cucumber or carrot if using."},
+      {t:"Fold in the sides and roll up tightly, then slice in half on the diagonal."}
+    ],
+    tips:["Greek yogurt + avocado replaces mayo for more protein and less saturated fat.","A low-carb wrap trims about 15g of carbs.","Best eaten within a few hours \u2014 avocado browns over time."] }
+];
+function renderRecipes(){
+  const wrap=document.getElementById('recipeList'); wrap.innerHTML='';
+  RECIPES.forEach(r=>{
+    const el=document.createElement('div'); el.className='recipe';
+    const h=document.createElement('h4'); h.textContent=r.name; el.appendChild(h);
+    if(r.sub){ const sub=document.createElement('div'); sub.className='r-sub'; sub.textContent=r.sub; el.appendChild(sub); }
+    const chips=document.createElement('div'); chips.className='chips';
+    [['cal',r.cal+' cal'],['p','P '+r.p+'g'],['c','C '+r.c+'g'],['f','F '+r.f+'g']].forEach(pair=>{ const s=document.createElement('span'); s.className='chip '+pair[0]; s.textContent=pair[1]; chips.appendChild(s); });
+    el.appendChild(chips);
+    const ingPrev = r.ingredients.length>4 ? r.ingredients.slice(0,4).join(', ')+'\u2026' : r.ingredients.join(', ');
+    const ing=document.createElement('p'); ing.className='ingredients'; ing.textContent='Ingredients: '+ingPrev; el.appendChild(ing);
+    const acts=document.createElement('div'); acts.className='r-actions';
+    const logBtn=document.createElement('button'); logBtn.className='r-btn primary'; logBtn.type='button'; logBtn.textContent='+ Log it';
+    const howBtn=document.createElement('button'); howBtn.className='r-btn'; howBtn.type='button'; howBtn.textContent='How to make';
+    acts.appendChild(logBtn); acts.appendChild(howBtn); el.appendChild(acts);
+    howBtn.addEventListener('click', ()=>openRecipe(r));
+    logBtn.addEventListener('click', ()=>{
+      addEntry({name:r.name, cal:r.cal, p:r.p, c:r.c, f:r.f});
+      logBtn.textContent='Added \u2713'; logBtn.disabled=true;
+      setTimeout(()=>{ logBtn.textContent='+ Log it'; logBtn.disabled=false; }, 1200);
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+    wrap.appendChild(el);
+  });
+}
+
 /* ---------- init ---------- */
 renderHome();
+renderNutrition();
+renderRecipes();
 </script>
 </body>
 </html>
