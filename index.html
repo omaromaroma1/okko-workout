@@ -759,12 +759,14 @@ let currentKey = null;
 let resetTimer = null;
 let watchingDemo = false;   // set when a "Watch how" link is tapped (opens TikTok in a new tab)
 let openLogs = new Set();   // exercise indices whose weight/reps log panel is expanded
+let logOn = false;          // per day: logging starts OFF, only on when toggled
 const homeEl = document.getElementById("home");
 const detailEl = document.getElementById("detail");
 const exList = document.getElementById("exList");
 
 function openDay(key){
   currentKey = key;
+  logOn = false;
   openLogs.clear();
   const d = ROUTINE[key];
   document.getElementById("dEmoji").textContent = d.emoji;
@@ -846,8 +848,8 @@ document.getElementById('saveDay').addEventListener('click', saveDay);
 (function(){ const b=document.getElementById('dayUnit'); if(b) b.addEventListener('click', function(){ toggleUnit(); renderExercises(); }); })();
 
 /* Optional weight/reps logging */
-function logMode(){ return localStorage.getItem('okko-logmode')!=='0'; }
-function setLogMode(on){ try{ localStorage.setItem('okko-logmode', on?'1':'0'); }catch(e){} }
+function logMode(){ return logOn; }
+function setLogMode(on){ logOn = !!on; }
 function isLogging(){ return currentKey!=='cardio' && logMode(); }
 function applyLogMode(){ const allowed=currentKey!=='cardio'; const on=allowed && logMode(); detailEl.classList.toggle('logon', on); const lm=document.getElementById('logMode'); if(lm){ lm.style.display=allowed?'':'none'; lm.classList.toggle('on', on); lm.textContent = on ? 'Log: on' : 'Log: off'; } }
 (function(){ const lm=document.getElementById('logMode'); if(lm) lm.addEventListener('click', function(){ setLogMode(!logMode()); applyLogMode(); }); })();
