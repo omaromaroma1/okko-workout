@@ -804,7 +804,8 @@ function renderExercises(){
     const panel = document.createElement("div"); panel.className = "ex-log show";
     buildInputs(key, i, ex, panel, u);
     panel.addEventListener('input', function(){
-      const filled=[...panel.querySelectorAll('.set-row')].some(function(r){ const w=parseFloat(r.querySelector('.w').value); const rr=parseFloat(r.querySelector('.r').value); return w>0||rr>0; });
+      const rows=[...panel.querySelectorAll('.set-row')];
+      const filled=rows.length>0 && rows.every(function(r){ const w=parseFloat(r.querySelector('.w').value); const rr=parseFloat(r.querySelector('.r').value); return w>0 && rr>0; });
       const st=dayState(key);
       if(st[i]!==filled){ st[i]=filled; saveState(state); const rowEl=wrap.querySelector('.ex'); if(rowEl) rowEl.classList.toggle('done', filled); updateProgress(); }
     });
